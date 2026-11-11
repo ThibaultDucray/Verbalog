@@ -17,13 +17,20 @@ Free and open source, with no account, no subscription and no tracking.
 
 ## Install
 
-Download `Verbalog.dmg` from the [latest release](../../releases/latest), open it and drag Verbalog to Applications. Releases are signed with a Developer ID and notarized by Apple.
+Download `Verbalog-<version>.dmg` from the [latest release](../../releases/latest), open it and drag Verbalog to Applications. Releases are signed with a Developer ID and notarized by Apple.
+
+To uninstall, see [Uninstalling](MANUAL.md#uninstalling) in the manual: Verbalog also installs Python and models outside the app.
 
 To build it yourself instead, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## First run
 
-1. **Status & Models** opens by itself: click **Install** to set up Python, then download the models. Whisper needs nothing else. For speaker separation, [accept the pyannote licence](https://huggingface.co/pyannote/speaker-diarization-community-1) with a free Hugging Face account, create a read token, and save it there first.
+1. **Status & Models** opens by itself: click **Install** to set up Python (a few minutes, once), then **Download Missing Models**. Whisper needs no account. The speaker separation model needs a free Hugging Face token, once, before downloading:
+   1. With a free [Hugging Face account](https://huggingface.co/join), open the [model page](https://huggingface.co/pyannote/speaker-diarization-community-1) and click **Agree and access repository**.
+   2. In [Settings › Access Tokens](https://huggingface.co/settings/tokens), create a token of type **Read** and copy it (`hf_…`).
+   3. Paste it into **Hugging Face token** on Status & Models and click **Save Token**. It's kept in your Keychain and used only for this download.
+
+   Without it, transcription still works, but voices sharing an audio track aren't told apart. Details in the [manual](MANUAL.md#download-the-models).
 2. **Settings** (⌘,): enter your name. The language can be changed there too (English or French; restart required).
 3. **New Meeting**: macOS asks for the microphone and screen-recording permissions the first time. Screen recording is how macOS lets an app capture system audio, meaning the remote participants on a call.
 

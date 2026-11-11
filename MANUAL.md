@@ -31,9 +31,9 @@ Verbalog records your meetings on your Mac, transcribes them, works out who said
 - An internet connection for the first launch
 - About 4 GB of disk space: about 2 GB for Python and its packages, and about 2 GB for the models
 
-**Install:** download `Verbalog.dmg` from the project's GitHub releases, open it and drag **Verbalog** to **Applications**.
+**Install:** download `Verbalog-<version>.dmg` from the [latest release](https://github.com/ThibaultDucray/Verbalog/releases/latest), open it and drag **Verbalog** to **Applications**. The first time you open it, macOS asks whether to open an app downloaded from the internet: click **Open**. Releases are signed and notarized by Apple, so there's no other warning.
 
-**First launch:** Verbalog opens **Status & Models**. Click **Install** next to **Backend Python**: it downloads Python and the packages Verbalog needs, once, into `~/Library/Application Support/Verbalog`. Then download the models (see below). After an update, if the new version needs different packages, the same place shows **Update needed**.
+**First launch:** Verbalog opens **Status & Models**. Click **Install** next to **Backend Python**: it downloads Python and the packages Verbalog needs, once, into `~/Library/Application Support/Verbalog`. This takes a few minutes. Then download the models (see [First-time setup](#2-first-time-setup)). After an update, if the new version needs different packages, the same place shows **Update needed**.
 
 To build Verbalog yourself, see `CONTRIBUTING.md`.
 
@@ -45,11 +45,24 @@ Drag Verbalog from Applications to the Trash, then delete what it installed and 
 |---|---|
 | `~/Library/Application Support/Verbalog` | Python and packages |
 | `~/Library/Caches/Verbalog` | Download and bytecode caches |
+| `~/Library/Preferences/app.verbalog.Verbalog.plist` | Interface preferences: language, remembered audio sources, your custom LLM site |
 | `~/.cache/huggingface/hub` | The models, in the `models--mlx-community--whisper-*` and `models--pyannote--*` folders. Other apps may share this cache |
-| `~/.verbalog` | Your settings, lists, voiceprints and meetings in progress |
-| `~/Verbalog` | Your exported transcripts: keep them if you want them |
+| `~/.verbalog` | Your settings, lists, voiceprints and meetings not finished yet |
+| `~/Verbalog`, or the folder chosen in Settings | Your exported transcripts: keep them if you want them |
 
-The Hugging Face token, the API key and the voiceprint key are in the Keychain, under the service name `verbalog`: delete them with **Keychain Access**. Deleting the voiceprint key makes saved voiceprints unreadable.
+The Hugging Face token, the Anthropic API key and the voiceprint key are in the Keychain, under the service name `verbalog`: delete them with **Keychain Access**. Deleting the voiceprint key makes saved voiceprints unreadable.
+
+The same thing in Terminal, except your transcripts. The third line also deletes your meetings in progress:
+
+```sh
+rm -rf ~/Library/Application\ Support/Verbalog ~/Library/Caches/Verbalog
+defaults delete app.verbalog.Verbalog
+rm -rf ~/.verbalog
+for item in hf-token anthropic-api-key voiceprint-key; do security delete-generic-password -s verbalog -a $item; done
+tccutil reset All app.verbalog.Verbalog
+```
+
+The last line removes Verbalog from the Microphone and Screen & System Audio Recording lists in System Settings › Privacy & Security.
 
 ---
 
@@ -65,13 +78,19 @@ Click **Status & Models** at the bottom of the sidebar. This screen shows what's
 | Whisper small | The live preview during meetings | About 500 MB | No |
 | pyannote community-1 | Separates voices on the same audio track | Downloaded with the models | Strongly recommended |
 
-The Whisper models need no account. The speaker model needs a free Hugging Face token, once:
+The Whisper models need no account. The speaker model is free, but its publisher asks you to accept its conditions first, so downloading it needs a Hugging Face account and token, once:
 
-1. Open the [model page](https://huggingface.co/pyannote/speaker-diarization-community-1) and accept the licence.
-2. Create a read token in your Hugging Face account.
-3. Paste it into **Hugging Face token** on the Status & Models screen and click **Save Token**. It's stored in your macOS Keychain.
+1. **Create a free account** at [huggingface.co](https://huggingface.co/join), or sign in.
+2. **Accept the conditions:** open the [model page](https://huggingface.co/pyannote/speaker-diarization-community-1), fill in the short form and click **Agree and access repository**. Use the same account as for the token.
+3. **Create a token:** go to [Settings › Access Tokens](https://huggingface.co/settings/tokens), click **Create new token**, choose the **Read** type, name it "Verbalog" and click **Create token**. Copy it right away: it starts with `hf_` and is shown only once.
+4. **Save it in Verbalog:** on the Status & Models screen, paste it into **Hugging Face token** and click **Save Token**. It's stored in your macOS Keychain, never in a file.
 
-Then click **Download Missing Models**. Once the models are downloaded, transcription works offline.
+Then click **Download Missing Models**.
+
+- The token is only used to download the speaker model. Processing meetings works offline and never contacts Hugging Face.
+- With a **Fine-grained** token instead of **Read**, tick **Read access to contents of all public gated repos you can access**, or the download is refused.
+- If the download says access is denied, the conditions weren't accepted with the account the token belongs to.
+- You can revoke the token on Hugging Face once the model is downloaded. You'd only need a new one to download the model again.
 
 ### Enter your name
 
