@@ -1,0 +1,62 @@
+# --- Meeting data: must never be published ---
+# The app writes these outside the repo (~/.verbalog, ~/Verbalog). These rules
+# are the safety net for a copy, a test run or a misconfigured output folder.
+*.wav
+*.aif
+*.aiff
+*.mp3
+*.m4a
+*.flac
+*.ogg
+sessions/
+voiceprints/
+*.vp
+session.json
+transcript.json
+notes.jsonl
+live.jsonl
+.mapping.json
+llm_payload.md
+*_synthese.md
+*_pseudonymise.md
+sensitive.txt
+glossary.txt
+backend.log
+
+# --- Secrets and signing ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.cer
+*.mobileprovision
+*.provisionprofile
+
+# --- Python ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# --- Swift and Xcode ---
+build/
+.build/
+.swiftpm/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# --- Local tools and macOS ---
+.claude/settings.local.json
+.vscode/
+.idea/
+.DS_Store
+# iCloud placeholders for files not downloaded yet
+.*.icloud

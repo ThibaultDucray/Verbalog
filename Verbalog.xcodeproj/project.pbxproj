@@ -1,0 +1,924 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		25F9CBA4C275A3C34E209F95 /* verbalog-capture in Embed Dependencies */ = {isa = PBXBuildFile; fileRef = 6B4C99E2EAB4D1F3E67C633F /* verbalog-capture */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		34E768D79C9D7428FCBC3956 /* libVerbalogCaptureKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDCE987FBAAAB52345D7D106 /* libVerbalogCaptureKit.a */; };
+		4AB6DB3E59A5097BF8388A1B /* libVerbalogCaptureKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDCE987FBAAAB52345D7D106 /* libVerbalogCaptureKit.a */; };
+		81441BFC8120475758ECA09E /* libVerbalogCaptureKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDCE987FBAAAB52345D7D106 /* libVerbalogCaptureKit.a */; };
+		8D8BC6F73FDB305A54113E65 /* libVerbalogCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E586B0C2E1BDFF5047CF48A /* libVerbalogCore.a */; };
+		A6720740EBD4BDDA4A4D1690 /* libVerbalogCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E586B0C2E1BDFF5047CF48A /* libVerbalogCore.a */; };
+		DC65214A3F0D4C2C50E5A754 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08AA1EEE65B0AE2D5FDB52AE /* Localizable.strings */; };
+		F5885AF02EF9220B486FDE1F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5508BA18948078804A15192B /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		14D8E379095FD9F05CC40332 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B4955FDFFD17D7C4D3EB8FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F57A4766CFD9162FA6F7D8A4;
+			remoteInfo = VerbalogCaptureKit;
+		};
+		4FE1154E1A2294CCD2E8C3B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B4955FDFFD17D7C4D3EB8FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F57A4766CFD9162FA6F7D8A4;
+			remoteInfo = VerbalogCaptureKit;
+		};
+		70EB42735D982E18527B0F0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B4955FDFFD17D7C4D3EB8FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28E0C0C5E1B9D75853B6E56D;
+			remoteInfo = VerbalogCore;
+		};
+		DF911E5CB62BF9919396EBEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B4955FDFFD17D7C4D3EB8FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 959139B39E9164506D6CA551;
+			remoteInfo = "verbalog-capture";
+		};
+		FDF1DE1A5BA70B999DD58A06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B4955FDFFD17D7C4D3EB8FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28E0C0C5E1B9D75853B6E56D;
+			remoteInfo = VerbalogCore;
+		};
+		FF1207B34FA5C011EFC1527A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B4955FDFFD17D7C4D3EB8FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F57A4766CFD9162FA6F7D8A4;
+			remoteInfo = VerbalogCaptureKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8A9F0997ACBDFC1C2ECB1471 /* Embed Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				25F9CBA4C275A3C34E209F95 /* verbalog-capture in Embed Dependencies */,
+			);
+			name = "Embed Dependencies";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		009E7A890D7AE556AC763BEF /* Verbalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Verbalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02A51F95EB8E21A3F1D24951 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		02CFADFAFFA3537808855EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4E586B0C2E1BDFF5047CF48A /* libVerbalogCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVerbalogCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5508BA18948078804A15192B /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		591E79ABBEE88B0D310E67C1 /* VerbalogCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerbalogCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		614D6BF40F6832F48B1BF54B /* Verbalog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Verbalog.entitlements; sourceTree = "<group>"; };
+		6B4C99E2EAB4D1F3E67C633F /* verbalog-capture */ = {isa = PBXFileReference; includeInIndex = 0; path = "verbalog-capture"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0226FDE6E5C27AE56CC0797 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DDCE987FBAAAB52345D7D106 /* libVerbalogCaptureKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVerbalogCaptureKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		026F6525425F17A6726447D1 /* VerbalogApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			name = VerbalogApp;
+			path = VerbalogApp;
+			sourceTree = "<group>";
+		};
+		04FC7734CE6470ED374B3096 /* verbalog-capture */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			name = "verbalog-capture";
+			path = "verbalog-capture";
+			sourceTree = "<group>";
+		};
+		0D95ACC64F3F5EB6C01BD35D /* VerbalogCore */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			name = VerbalogCore;
+			path = VerbalogCore;
+			sourceTree = "<group>";
+		};
+		145A259403FAA4CE9908358C /* VerbalogCoreTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			name = VerbalogCoreTests;
+			path = VerbalogCoreTests;
+			sourceTree = "<group>";
+		};
+		C90617A8ED52E497D932D91F /* VerbalogCaptureKit */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			name = VerbalogCaptureKit;
+			path = VerbalogCaptureKit;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		64C609D4A491D82B54A67916 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81441BFC8120475758ECA09E /* libVerbalogCaptureKit.a in Frameworks */,
+				8D8BC6F73FDB305A54113E65 /* libVerbalogCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8177B64293371DA2B7C5301A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34E768D79C9D7428FCBC3956 /* libVerbalogCaptureKit.a in Frameworks */,
+				A6720740EBD4BDDA4A4D1690 /* libVerbalogCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEE742EEDB90A8998DE867D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AB6DB3E59A5097BF8388A1B /* libVerbalogCaptureKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EAC472D9A5C077981FE1A5E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDCE987FBAAAB52345D7D106 /* libVerbalogCaptureKit.a */,
+				4E586B0C2E1BDFF5047CF48A /* libVerbalogCore.a */,
+				6B4C99E2EAB4D1F3E67C633F /* verbalog-capture */,
+				009E7A890D7AE556AC763BEF /* Verbalog.app */,
+				591E79ABBEE88B0D310E67C1 /* VerbalogCoreTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1BF159362B4627BC8F867901 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5508BA18948078804A15192B /* InfoPlist.strings */,
+				08AA1EEE65B0AE2D5FDB52AE /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		33B7FD2B8E01B78F92D60E60 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				02CFADFAFFA3537808855EC2 /* Info.plist */,
+				614D6BF40F6832F48B1BF54B /* Verbalog.entitlements */,
+				1BF159362B4627BC8F867901 /* Resources */,
+				C5E587E906180379E86961E5 /* Sources */,
+				5A82EEB529E04616A758AD96 /* Tests */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		5A82EEB529E04616A758AD96 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				145A259403FAA4CE9908358C /* VerbalogCoreTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C0BE9A23EF672F5C9CA613E1 = {
+			isa = PBXGroup;
+			children = (
+				33B7FD2B8E01B78F92D60E60 /* app */,
+				0EAC472D9A5C077981FE1A5E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C5E587E906180379E86961E5 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				04FC7734CE6470ED374B3096 /* verbalog-capture */,
+				026F6525425F17A6726447D1 /* VerbalogApp */,
+				C90617A8ED52E497D932D91F /* VerbalogCaptureKit */,
+				0D95ACC64F3F5EB6C01BD35D /* VerbalogCore */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		28E0C0C5E1B9D75853B6E56D /* VerbalogCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6CC7F76E525BB19A95D645 /* Build configuration list for PBXNativeTarget "VerbalogCore" */;
+			buildPhases = (
+				07C0DE0ADC630D9037E70D69 /* Sources */,
+				69556935DDCB921B5DD99B50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0D95ACC64F3F5EB6C01BD35D /* VerbalogCore */,
+			);
+			name = VerbalogCore;
+			packageProductDependencies = (
+			);
+			productName = VerbalogCore;
+			productReference = 4E586B0C2E1BDFF5047CF48A /* libVerbalogCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		40A5C4B75CBD53EB2439B0F5 /* VerbalogCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3CA0468DE1022EF25250B1CF /* Build configuration list for PBXNativeTarget "VerbalogCoreTests" */;
+			buildPhases = (
+				6CC0DC8D715856B9F7E7BE97 /* Sources */,
+				E06306890DEAFF0FA98E01EB /* Resources */,
+				64C609D4A491D82B54A67916 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12A2EF10C326FC8616EB8BD8 /* PBXTargetDependency */,
+				7CABAC69C62311A4CB3204FD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				145A259403FAA4CE9908358C /* VerbalogCoreTests */,
+			);
+			name = VerbalogCoreTests;
+			packageProductDependencies = (
+			);
+			productName = VerbalogCoreTests;
+			productReference = 591E79ABBEE88B0D310E67C1 /* VerbalogCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		959139B39E9164506D6CA551 /* verbalog-capture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B4E5C31B1608905BEB4D373 /* Build configuration list for PBXNativeTarget "verbalog-capture" */;
+			buildPhases = (
+				119FF69C2CE2092F7D474A97 /* Sources */,
+				DC3BEF43A3DE3B5EEE1D0F12 /* Resources */,
+				BEE742EEDB90A8998DE867D4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23A14173D3AD0A6510457192 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				04FC7734CE6470ED374B3096 /* verbalog-capture */,
+			);
+			name = "verbalog-capture";
+			packageProductDependencies = (
+			);
+			productName = "verbalog-capture";
+			productReference = 6B4C99E2EAB4D1F3E67C633F /* verbalog-capture */;
+			productType = "com.apple.product-type.tool";
+		};
+		CE88D736F870CCCF773C624C /* Verbalog */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 38F37D7EA807F3DCA00B75EF /* Build configuration list for PBXNativeTarget "Verbalog" */;
+			buildPhases = (
+				22776E8AF2E1CD0098DB9446 /* Sources */,
+				0B742E1F6403B5553B812EDF /* Generate App Icon */,
+				B667456ABF6ED85516F2AF2D /* Resources */,
+				8177B64293371DA2B7C5301A /* Frameworks */,
+				8A9F0997ACBDFC1C2ECB1471 /* Embed Dependencies */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3EBFD618298B215294445CF /* PBXTargetDependency */,
+				373D2FC2899D21BBDD3368DA /* PBXTargetDependency */,
+				2BA047E651B4EFF5C571CDEB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				026F6525425F17A6726447D1 /* VerbalogApp */,
+			);
+			name = Verbalog;
+			packageProductDependencies = (
+			);
+			productName = Verbalog;
+			productReference = 009E7A890D7AE556AC763BEF /* Verbalog.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F57A4766CFD9162FA6F7D8A4 /* VerbalogCaptureKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D11C13B5FFAEBA09A38FACAC /* Build configuration list for PBXNativeTarget "VerbalogCaptureKit" */;
+			buildPhases = (
+				9F11FB4B1C4CBE16A8A895E6 /* Sources */,
+				827FC133AA263006FC9DAC4A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C90617A8ED52E497D932D91F /* VerbalogCaptureKit */,
+			);
+			name = VerbalogCaptureKit;
+			packageProductDependencies = (
+			);
+			productName = VerbalogCaptureKit;
+			productReference = DDCE987FBAAAB52345D7D106 /* libVerbalogCaptureKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8B4955FDFFD17D7C4D3EB8FC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					28E0C0C5E1B9D75853B6E56D = {
+						DevelopmentTeam = UNL3JQNL44;
+						ProvisioningStyle = Manual;
+					};
+					40A5C4B75CBD53EB2439B0F5 = {
+						DevelopmentTeam = UNL3JQNL44;
+						ProvisioningStyle = Manual;
+					};
+					959139B39E9164506D6CA551 = {
+						DevelopmentTeam = UNL3JQNL44;
+						ProvisioningStyle = Manual;
+					};
+					CE88D736F870CCCF773C624C = {
+						DevelopmentTeam = UNL3JQNL44;
+						ProvisioningStyle = Manual;
+					};
+					F57A4766CFD9162FA6F7D8A4 = {
+						DevelopmentTeam = UNL3JQNL44;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 1C34873E2B0C688D83AA8E55 /* Build configuration list for PBXProject "Verbalog" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				fr,
+			);
+			mainGroup = C0BE9A23EF672F5C9CA613E1;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0EAC472D9A5C077981FE1A5E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F57A4766CFD9162FA6F7D8A4 /* VerbalogCaptureKit */,
+				28E0C0C5E1B9D75853B6E56D /* VerbalogCore */,
+				959139B39E9164506D6CA551 /* verbalog-capture */,
+				CE88D736F870CCCF773C624C /* Verbalog */,
+				40A5C4B75CBD53EB2439B0F5 /* VerbalogCoreTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		69556935DDCB921B5DD99B50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		827FC133AA263006FC9DAC4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B667456ABF6ED85516F2AF2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5885AF02EF9220B486FDE1F /* InfoPlist.strings in Resources */,
+				DC65214A3F0D4C2C50E5A754 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC3BEF43A3DE3B5EEE1D0F12 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E06306890DEAFF0FA98E01EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B742E1F6403B5553B812EDF /* Generate App Icon */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/verbalog-icon.png",
+				"$(SRCROOT)/scripts/make-iconset.swift",
+			);
+			name = "Generate App Icon";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Verbalog.icns",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -euo pipefail\nWORK=\"$(mktemp -d)\"\ntrap 'rm -rf \"$WORK\"' EXIT\n/usr/bin/env -u SDKROOT swift \"$SRCROOT/scripts/make-iconset.swift\" \"$SRCROOT/verbalog-icon.png\" \"$WORK/Verbalog.iconset\"\nmkdir -p \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\niconutil -c icns \"$WORK/Verbalog.iconset\" -o \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Verbalog.icns\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		07C0DE0ADC630D9037E70D69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		119FF69C2CE2092F7D474A97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22776E8AF2E1CD0098DB9446 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CC0DC8D715856B9F7E7BE97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F11FB4B1C4CBE16A8A895E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		12A2EF10C326FC8616EB8BD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F57A4766CFD9162FA6F7D8A4 /* VerbalogCaptureKit */;
+			targetProxy = 14D8E379095FD9F05CC40332 /* PBXContainerItemProxy */;
+		};
+		23A14173D3AD0A6510457192 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F57A4766CFD9162FA6F7D8A4 /* VerbalogCaptureKit */;
+			targetProxy = 4FE1154E1A2294CCD2E8C3B3 /* PBXContainerItemProxy */;
+		};
+		2BA047E651B4EFF5C571CDEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 959139B39E9164506D6CA551 /* verbalog-capture */;
+			targetProxy = DF911E5CB62BF9919396EBEC /* PBXContainerItemProxy */;
+		};
+		373D2FC2899D21BBDD3368DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28E0C0C5E1B9D75853B6E56D /* VerbalogCore */;
+			targetProxy = FDF1DE1A5BA70B999DD58A06 /* PBXContainerItemProxy */;
+		};
+		7CABAC69C62311A4CB3204FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28E0C0C5E1B9D75853B6E56D /* VerbalogCore */;
+			targetProxy = 70EB42735D982E18527B0F0A /* PBXContainerItemProxy */;
+		};
+		D3EBFD618298B215294445CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F57A4766CFD9162FA6F7D8A4 /* VerbalogCaptureKit */;
+			targetProxy = FF1207B34FA5C011EFC1527A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		08AA1EEE65B0AE2D5FDB52AE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0226FDE6E5C27AE56CC0797 /* en */,
+				02A51F95EB8E21A3F1D24951 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		12D1A9CD801FF4B942E7D246 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = app/Verbalog.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = app/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.Verbalog;
+				PRODUCT_MODULE_NAME = VerbalogApp;
+				PRODUCT_NAME = Verbalog;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1A30D7E32BE6B72F79889D8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = UNL3JQNL44;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1E90D1BDF17B9030077C0C10 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = app/Verbalog.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = app/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.Verbalog;
+				PRODUCT_MODULE_NAME = VerbalogApp;
+				PRODUCT_NAME = Verbalog;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3A8103D036FB712876D52C40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UNL3JQNL44;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		53667EC91ECB277081623665 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.VerbalogCaptureKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		616F07A03A2E3B008882B5BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.tests;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		76275A200912A0F537DE880B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = app/Verbalog.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.capture;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9668DF368E679B4898DD076D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.VerbalogCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D0BDEFC849C6C562D764816D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = app/Verbalog.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.capture;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D4511C520A290AC6D80E483A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.VerbalogCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DAF87CA6957F3C4B6BF1AB16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.tests;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DF6B565C4C16FD2A649E78DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.verbalog.VerbalogCaptureKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C34873E2B0C688D83AA8E55 /* Build configuration list for PBXProject "Verbalog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A30D7E32BE6B72F79889D8C /* Debug */,
+				3A8103D036FB712876D52C40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		38F37D7EA807F3DCA00B75EF /* Build configuration list for PBXNativeTarget "Verbalog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12D1A9CD801FF4B942E7D246 /* Debug */,
+				1E90D1BDF17B9030077C0C10 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3CA0468DE1022EF25250B1CF /* Build configuration list for PBXNativeTarget "VerbalogCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF87CA6957F3C4B6BF1AB16 /* Debug */,
+				616F07A03A2E3B008882B5BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7B4E5C31B1608905BEB4D373 /* Build configuration list for PBXNativeTarget "verbalog-capture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76275A200912A0F537DE880B /* Debug */,
+				D0BDEFC849C6C562D764816D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D11C13B5FFAEBA09A38FACAC /* Build configuration list for PBXNativeTarget "VerbalogCaptureKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF6B565C4C16FD2A649E78DF /* Debug */,
+				53667EC91ECB277081623665 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DC6CC7F76E525BB19A95D645 /* Build configuration list for PBXNativeTarget "VerbalogCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4511C520A290AC6D80E483A /* Debug */,
+				9668DF368E679B4898DD076D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8B4955FDFFD17D7C4D3EB8FC /* Project object */;
+}

@@ -1,0 +1,69 @@
+# Verbalog
+
+Local meeting notes for macOS. Verbalog records a meeting on your Mac, transcribes it, works out who said what, and lets you correct the result. **Audio never leaves the Mac.**
+
+- Records your mic and the call's audio (Teams, Zoom, Meet…), a room, or both
+- Transcribes locally with Whisper, accelerated by Apple's MLX
+- Separates voices with pyannote, then lets you name each speaker from short audio extracts
+- Timestamped notes while you listen: actions, decisions, questions, bookmarks, private notes
+- Exports Markdown and JSON, and prepares an optional summary through the LLM of your choice, pseudonymized first and previewed before anything is sent
+
+Free and open source, with no account, no subscription and no tracking.
+
+## Requirements
+
+- A Mac with Apple Silicon, running macOS 14 or later
+- An internet connection for the first launch, and about 4 GB of disk space: Verbalog installs Python and its packages, then the models
+
+## Install
+
+Download `Verbalog.dmg` from the [latest release](../../releases/latest), open it and drag Verbalog to Applications. Releases are signed with a Developer ID and notarized by Apple.
+
+To build it yourself instead, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## First run
+
+1. **Status & Models** opens by itself: click **Install** to set up Python, then download the models. Whisper needs nothing else. For speaker separation, [accept the pyannote licence](https://huggingface.co/pyannote/speaker-diarization-community-1) with a free Hugging Face account, create a read token, and save it there first.
+2. **Settings** (⌘,): enter your name. The language can be changed there too (English or French; restart required).
+3. **New Meeting**: macOS asks for the microphone and screen-recording permissions the first time. Screen recording is how macOS lets an app capture system audio, meaning the remote participants on a call.
+
+Let participants know they're being recorded. Recording people without their knowledge may be illegal where you are.
+
+## Using it
+
+- **During a meeting**: type notes and press Return; ⌃⌥N opens the note field from any app. The timestamp is taken at the first keystroke.
+
+  | Prefix | Meaning |
+  |---|---|
+  | `!` `#` `?` | action, decision, question |
+  | `~` | private note, never exported |
+  | `@Jim` / `ici c'est Jim` | the person speaking is Jim, across the whole meeting |
+  | `@Jim+` | the next person to speak is Jim |
+  | empty line | bookmark |
+  | `/mute` `/unmute` | stop or resume recording your mic only (⌃⌥M from any app) |
+  | `/pause` `/resume` `/stop` `/title …` `/participants …` | commands |
+
+- **After a meeting**: processing starts by itself. If speakers remain unnamed, a review screen shows their quotes and lets you replay them, name them or merge them. Validating it exports the files and deletes the audio.
+- **Sending to an LLM**: *Send to LLM* shows the exact text that would leave the Mac, pseudonymized by default. Copy it, save it, or open Claude, ChatGPT, Gemini, Mistral or your own URL, then paste the response back to restore the real names. With an Anthropic API key, the app can also generate the summary directly.
+
+The [user manual](MANUAL.md) covers everything else.
+
+## Privacy
+
+Audio, transcription, speaker separation and voiceprints stay on your Mac. The network is used only to install Python and its packages on first launch, to download the models from Hugging Face, and to send text to an LLM when you choose to. There is no analytics or telemetry, including from the libraries Verbalog uses.
+
+Files go to `~/Verbalog`; working data is in `~/.verbalog`. See [Privacy and your data](MANUAL.md#12-privacy-and-your-data) for the details.
+
+## Contributing
+
+Bug reports and pull requests are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Never attach real recordings or transcripts to an issue. To report a security or privacy problem, see [SECURITY.md](SECURITY.md).
+
+## Licence
+
+Verbalog is free software, released under the [GNU General Public License v3.0 or later](LICENSE). You may use, study, share and modify it; versions you distribute must stay under the same licence, with their source code available.
+
+The app bundles [uv](https://github.com/astral-sh/uv) (MIT licence, notice in `Verbalog.app/Contents/Resources/Licenses`). The Python packages and models it installs are downloaded from their publishers, under their own licences.
+
+## Credits
+
+Verbalog builds on [Whisper](https://github.com/openai/whisper) by OpenAI, [MLX](https://github.com/ml-explore/mlx) and [mlx-whisper](https://github.com/ml-explore/mlx-examples) by Apple, and [pyannote.audio](https://github.com/pyannote/pyannote-audio) with the [speaker-diarization-community-1](https://huggingface.co/pyannote/speaker-diarization-community-1) model by pyannote.

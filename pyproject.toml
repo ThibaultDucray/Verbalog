@@ -1,0 +1,45 @@
+[project]
+name = "verbalog"
+version = "0.1.0"
+description = "Local meeting capture, transcription and annotation backend for the Verbalog macOS app"
+requires-python = ">=3.12,<3.13"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+dependencies = [
+    "numpy>=2",
+    "mlx-whisper>=0.4.3",
+    "huggingface-hub",
+    "tomli-w>=1.2",
+    "keyring>=25",
+    "cryptography>=45",
+    "anthropic>=2.4",
+]
+
+[project.optional-dependencies]
+diarization = ["pyannote.audio>=4.0", "torch>=2.8", "torchaudio>=2.8"]
+ner = [
+    "spacy>=3.8,<3.9",
+    "fr_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.8.0/fr_core_news_sm-3.8.0-py3-none-any.whl",
+    "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl",
+]
+
+[project.scripts]
+verbalog = "verbalog.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["verbalog"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["e2e: runs real models (needs downloaded Whisper weights)"]
+addopts = "-m 'not e2e'"

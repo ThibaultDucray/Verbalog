@@ -1,0 +1,2 @@
+"NSMicrophoneUsageDescription" = "Verbalog enregistre le micro pendant vos réunions. L'audio reste sur ce Mac et est supprimé après transcription.";
+"NSAudioCaptureUsageDescription" = "Verbalog enregistre le son de vos visioconférences. L'audio reste sur ce Mac et est supprimé après transcription.";
