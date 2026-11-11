@@ -27,6 +27,12 @@ DEFAULTS: dict[str, Any] = {
             "{nom} parle",
             "this is {nom}",
             "{nom} speaking",
+            "hier ist {nom}",
+            "hier spricht {nom}",
+            "hier is {nom}",
+            "{nom} spreekt",
+            "soy {nom}",
+            "aquí habla {nom}",
         ],
         "lookback_seconds": 5,
         "voiceprints_dir": "~/.verbalog/voiceprints",
@@ -38,6 +44,8 @@ DEFAULTS: dict[str, Any] = {
         "live_enabled": True,
         "live_model": "mlx-community/whisper-small-mlx",
         "glossary_file": "~/.verbalog/glossary.txt",
+        # Ticked by default for a new meeting, among "fr", "en", "de", "nl", "es".
+        "languages": ["fr", "en"],
     },
     "diarization": {"model": "pyannote/speaker-diarization-community-1", "device": "mps"},
     "notes": {"anchor": "first_keystroke"},
@@ -75,12 +83,38 @@ def deep_merge(base: dict[str, Any], over: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
-def load() -> dict[str, Any]:
+# Until 0.1.0, every save wrote all the defaults into the file, freezing this list there:
+# recognized and dropped, so that the patterns for newer languages apply.
+_FROZEN_NAMING_PATTERNS = ["ici c'est {nom}", "c'est {nom} qui parle", "{nom} parle", "this is {nom}", "{nom} speaking"]
+
+
+def _read_file() -> dict[str, Any]:
     path = config_path()
     if not path.exists():
-        return copy.deepcopy(DEFAULTS)
+        return {}
     with path.open("rb") as fh:
-        return deep_merge(DEFAULTS, tomllib.load(fh))
+        data = tomllib.load(fh)
+    speakers = data.get("speakers")
+    if isinstance(speakers, dict) and speakers.get("naming_patterns") == _FROZEN_NAMING_PATTERNS:
+        del speakers["naming_patterns"]
+    return data
+
+
+def _without_defaults(values: dict[str, Any], defaults: dict[str, Any]) -> dict[str, Any]:
+    """Only what differs from the defaults, so that improved defaults reach existing users."""
+    out: dict[str, Any] = {}
+    for key, value in values.items():
+        default = defaults.get(key)
+        if isinstance(value, dict) and isinstance(default, dict):
+            if nested := _without_defaults(value, default):
+                out[key] = nested
+        elif value != default:
+            out[key] = value
+    return out
+
+
+def load() -> dict[str, Any]:
+    return deep_merge(DEFAULTS, _read_file())
 
 
 def update(changes: dict[str, Any]) -> dict[str, Any]:
@@ -89,12 +123,12 @@ def update(changes: dict[str, Any]) -> dict[str, Any]:
     # Each save is its own process. The lock spans read to replace, or one save erases another.
     with path.with_suffix(".lock").open("wb") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        merged = deep_merge(load(), changes)
+        saved = _without_defaults(deep_merge(_read_file(), changes), DEFAULTS)
         tmp = path.with_suffix(".tmp")
         with tmp.open("wb") as fh:
-            tomli_w.dump(merged, fh)
+            tomli_w.dump(saved, fh)
         tmp.replace(path)
-    return merged
+    return deep_merge(DEFAULTS, saved)
 
 
 def read_glossary(cfg: dict[str, Any]) -> list[str]:

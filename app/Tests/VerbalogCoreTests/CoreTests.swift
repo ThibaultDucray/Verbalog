@@ -38,7 +38,8 @@ final class CoreTests: XCTestCase {
 
     func testCreateSessionUpdatesKeepUnknownFields() throws {
         let store = SessionStore(home: tempHome())
-        let meta = try store.create(title: "Comité : été", mode: .hybride, headset: false, roomCount: 4, remoteCount: nil, participants: ["Jim"], micDevice: nil, systemSource: nil)
+        let meta = try store.create(title: "Comité : été", mode: .hybride, headset: false, roomCount: 4, remoteCount: nil, participants: ["Jim"], languages: ["es", "xx", "fr"], micDevice: nil, systemSource: nil)
+        XCTAssertEqual(meta.languages, ["fr", "es"], "supported codes only, in display order")
         XCTAssertTrue(meta.id.hasSuffix("_comite-ete"), meta.id)
         XCTAssertEqual(meta.status, .recording)
         XCTAssertEqual(meta.room_count, 4)

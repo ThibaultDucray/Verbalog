@@ -27,8 +27,14 @@ struct MeetingForm: Equatable, Codable {
     var roomCount: Int?
     var remoteCount: Int?
     var participants = ""
+    var languages = ["fr", "en"]
     var micDevice: String?
     var systemSource: String?
+
+    // Remembered between meetings: only the audio setup is reused, and languages come from Settings.
+    private enum CodingKeys: String, CodingKey {
+        case title, mode, headset, roomCount, remoteCount, participants, micDevice, systemSource
+    }
 }
 
 extension MeetingForm {
@@ -40,7 +46,8 @@ extension MeetingForm {
             headset: meta.headset ?? true,
             roomCount: meta.room_count,
             remoteCount: meta.remote_count,
-            participants: (meta.participants ?? []).joined(separator: ", ")
+            participants: (meta.participants ?? []).joined(separator: ", "),
+            languages: MeetingLanguage.normalized(meta.languages ?? [])
         )
     }
 }
@@ -97,6 +104,7 @@ final class RecordingController: ObservableObject {
             roomCount: form.mode == .visio ? nil : form.roomCount,
             remoteCount: form.mode == .presentiel ? nil : form.remoteCount,
             participants: participants,
+            languages: form.languages,
             micDevice: form.micDevice,
             systemSource: form.systemSource
         )
@@ -286,6 +294,7 @@ final class RecordingController: ObservableObject {
                 "room_count": roomCount.map { $0 as Any } ?? NSNull(),
                 "remote_count": remoteCount.map { $0 as Any } ?? NSNull(),
                 "participants": [String].participants(from: form.participants),
+                "languages": MeetingLanguage.normalized(form.languages),
             ])
         } catch {
             warnings.append(L("Meeting details not saved: \(error.localizedDescription)"))

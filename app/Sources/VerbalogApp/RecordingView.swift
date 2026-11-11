@@ -20,7 +20,7 @@ struct RecordingView: View {
     /// Kept in sight, so a wrong type or count from the start form gets noticed.
     private var detailsSummary: String {
         guard let meta else { return "" }
-        var parts = [meta.mode.title]
+        var parts = [meta.mode.title, MeetingLanguage.normalized(meta.languages ?? []).map { $0.uppercased() }.joined(separator: "+")]
         if meta.mode != .visio, let count = meta.room_count { parts.append(L("\(count) in the room")) }
         if meta.mode != .presentiel, let count = meta.remote_count { parts.append(L("\(count) remote")) }
         let names = meta.participants ?? []
@@ -234,9 +234,11 @@ struct MeetingDetailsSheet: View {
             Form {
                 Section {
                     MeetingTypePicker(mode: $form.mode)
+                    LanguagesPicker(title: "Languages spoken", languages: $form.languages)
                 } footer: {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("These values apply to the whole recording when it's processed.")
+                        LanguagesHint()
                         if let notice = modeNotice {
                             Label(notice, systemImage: "exclamationmark.triangle.fill")
                                 .symbolRenderingMode(.multicolor)

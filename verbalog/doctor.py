@@ -32,7 +32,9 @@ def _installed(module: str) -> bool:
 
 
 def _spacy_models() -> bool:
-    return _installed("fr_core_news_sm") and _installed("en_core_web_sm")
+    from .pseudonymize import SPACY_MODELS
+
+    return all(_installed(model) for model in SPACY_MODELS.values())
 
 
 def _is_cloud_synced(path: Path) -> bool:

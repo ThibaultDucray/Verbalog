@@ -108,6 +108,36 @@ Bob from Microsoft called Sarah Connor about the contract."""
     assert "Durand" not in out and "Microsoft" not in out
 
 
+def test_names_starting_like_an_article_are_kept_whole(monkeypatch):
+    # "Anne" isn't "An" + "ne", nor "Laura" "La" + "ura": cut, they failed the name check and
+    # stayed in clear text. Real articles still go: "la Poste", "l'Agence", "die Telekom".
+    from verbalog.pseudonymize import _DETERMINERS
+
+    for name in ("Anne", "Laura", "Dupont", "Thea", "Lesage", "Elena", "Dieter", "Hetty"):
+        assert _DETERMINERS.sub("", name) == name
+    for raw, name in (("la Poste", "Poste"), ("l'Agence", "Agence"), ("The Guardian", "Guardian"),
+                      ("die Telekom", "Telekom"), ("het Rijksmuseum", "Rijksmuseum"), ("el Banco Santander", "Banco Santander")):
+        assert _DETERMINERS.sub("", raw) == name
+
+
+def test_entity_detection_in_german_dutch_and_spanish():
+    for model in ("de_core_news_sm", "nl_core_news_sm", "es_core_news_sm"):
+        pytest.importorskip(model)
+    texts = {
+        "de": "Ich habe gestern mit Anna Schmidt von Siemens telefoniert. Wir senden das Angebot am Freitag.",
+        "nl": "Ik heb gisteren met Pieter de Vries van Philips gebeld. We sturen de offerte vrijdag.",
+        "es": "Ayer hablé con María García de Telefónica. Enviaremos la oferta el viernes.",
+    }
+    # The small models sometimes take the company into the name ("María García de Telefónica"):
+    # the whole span is replaced, which still removes the name.
+    found = detect_entities(texts)
+    out = Pseudonymizer().apply_entities(" ".join(texts.values()), sorted(found))
+    for name in ("Schmidt", "Vries", "García", "Siemens"):
+        assert name not in out, (name, out)
+    for word in ("Ich habe gestern", "Wir senden", "Ayer hablé", "Enviaremos la oferta"):
+        assert word in out, (word, out)
+
+
 def test_detected_name_is_case_sensitive_unlike_a_listed_term():
     engine = Pseudonymizer()
     assert engine.apply_entities("Orange confirme, le fruit est orange.", [("ORGANISATION", "Orange")]) == "ORGANISATION_1 confirme, le fruit est orange."

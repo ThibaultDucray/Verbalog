@@ -3,7 +3,16 @@ import pytest
 
 from verbalog import audio as au
 from verbalog.model_types import SpeakerTurn
-from verbalog.transcribe import MAX_PROMPT_TOKENS, MlxTranscriber, _uncovered, build_prompt, fit_glossary, is_hallucination, regions_from_turns
+from verbalog.transcribe import (
+    MAX_PROMPT_TOKENS,
+    MlxTranscriber,
+    _uncovered,
+    build_prompt,
+    fit_glossary,
+    is_hallucination,
+    meeting_languages,
+    regions_from_turns,
+)
 
 GOOD = {"text": " Hello everyone.", "avg_logprob": -0.2, "compression_ratio": 1.2, "no_speech_prob": 0.0}
 
@@ -167,3 +176,55 @@ def test_chunk_detected_outside_french_and_english_is_decoded_as_both(monkeypatc
     assert calls == [None, "fr", "en"]
     assert result["language"] == "en"
     assert result["segments"][0]["text"] == " Thank you."
+
+
+def test_meeting_languages_keep_supported_ones_in_a_stable_order():
+    assert meeting_languages(["es", "xx", "fr"]) == ("fr", "es")
+    assert meeting_languages([]) == ("fr", "en")
+    assert meeting_languages(None) == ("fr", "en")
+
+
+def test_a_single_language_meeting_is_decoded_in_it(monkeypatch):
+    # The reason to tick only French: a French voice must never come out as invented English.
+    tr = MlxTranscriber("model", languages=["fr"])
+    calls = []
+
+    def decode(chunk, prompt, language=None):
+        calls.append(language)
+        return {"language": language, "segments": [seg(text=" Bonjour.")]}
+
+    monkeypatch.setattr(tr, "_decode", decode)
+    assert tr._transcribe(np.zeros(16000))["language"] == "fr"
+    assert calls == ["fr"]
+
+
+def test_chunk_outside_the_meeting_languages_is_decoded_in_each_of_them(monkeypatch):
+    tr = MlxTranscriber("model", languages=["de", "nl"])
+    calls = []
+
+    def decode(chunk, prompt, language=None):
+        calls.append(language)
+        return {
+            None: {"language": "en", "segments": [seg(text=" Good morning.")]},
+            "de": {"language": "de", "segments": [seg(text=" Guten Morgen.", avg_logprob=-0.3)]},
+            "nl": {"language": "nl", "segments": [seg(text=" Goedemorgen.", avg_logprob=-0.8)]},
+        }[language]
+
+    monkeypatch.setattr(tr, "_decode", decode)
+    result = tr._transcribe(np.zeros(16000))
+    assert calls == [None, "de", "nl"]
+    assert result["segments"][0]["text"] == " Guten Morgen."
+
+
+def test_subtitle_credits_are_dropped_in_every_supported_language():
+    for text in (
+        "Untertitel im Auftrag des ZDF, 2021",
+        "Vielen Dank fürs Zuschauen!",
+        "Ondertiteld door de Amara.org gemeenschap",
+        "Bedankt voor het kijken.",
+        "Subtítulos realizados por la comunidad de Amara.org",
+        "¡Gracias por ver el video!",
+    ):
+        assert is_hallucination(text, GOOD), text
+    assert not is_hallucination("Wir haben das Budget intern freigegeben.", GOOD)
+    assert not is_hallucination("Hemos validado el presupuesto.", GOOD)

@@ -60,12 +60,12 @@ def _diarize(diarizer: Diarizer, audio: np.ndarray, count: int | None, prefix: s
         return None
 
 
-def default_transcriber(cfg: dict[str, Any], participants: Sequence[str] = ()) -> Transcriber:
+def default_transcriber(cfg: dict[str, Any], participants: Sequence[str] = (), languages: Sequence[str] = ()) -> Transcriber:
     # Sensitive terms stay on this machine at this stage. Whisper spelling them right
     # is what lets the pseudonymizer recognize them later.
     sensitive = [term for _, term in pseudonymize.load_sensitive(config.expand(cfg["privacy"]["sensitive_file"]))]
     terms = [*participants, *config.read_glossary(cfg), *sensitive]  # first in, last to be cut
-    return MlxTranscriber(cfg["transcription"]["model"], list(dict.fromkeys(terms)))
+    return MlxTranscriber(cfg["transcription"]["model"], list(dict.fromkeys(terms)), languages or cfg["transcription"]["languages"])
 
 
 def default_diarizer(cfg: dict[str, Any]) -> Diarizer:
@@ -80,7 +80,7 @@ def process(session: Session, emit: Emit = null_emit, transcriber: Transcriber |
     session.set(status="processing", error=None)
     edit.clear_undo(session)  # snapshots of an earlier transcript must not overwrite the new one
     try:
-        transcriber = transcriber or default_transcriber(cfg, session.data.get("participants") or [])
+        transcriber = transcriber or default_transcriber(cfg, session.data.get("participants") or [], session.data.get("languages") or [])
         doc = _process(session, cfg, emit, transcriber, diarizer or default_diarizer(cfg))
     except Exception as exc:
         session.set(status="failed", error=str(exc))
@@ -306,7 +306,7 @@ def load_prompt(cfg: dict[str, Any]) -> str:
     """The user's copy if there is one, else the packaged default."""
     custom = config.home() / "prompts" / "synthese.md"
     text = custom.read_text(encoding="utf-8") if custom.exists() else default_prompt()
-    languages = {"fr": t("French"), "en": t("English")}
+    languages = {"fr": t("French"), "en": t("English"), "de": t("German"), "nl": t("Dutch"), "es": t("Spanish")}
     output_language = cfg["claude"]["output_language"]
     return text.replace("{{output_language}}", languages.get(output_language, output_language))
 

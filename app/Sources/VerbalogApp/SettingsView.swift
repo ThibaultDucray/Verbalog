@@ -41,6 +41,10 @@ private struct GeneralSettings: View {
             Picker("Default meeting type", selection: binding("session", "default_mode", "visio")) {
                 ForEach(MeetingMode.allCases) { Text($0.title).tag($0.rawValue) }
             }
+            LanguagesPicker(title: "Default meeting languages", languages: Binding(
+                get: { MeetingLanguage.normalized(model.configValue("transcription", "languages", default: ["fr", "en"])) },
+                set: { model.setConfig("transcription", "languages", $0) }
+            ))
             Toggle("Reuse audio sources from the last meeting", isOn: binding("session", "remember_last", true))
             Toggle("Live transcript during meetings", isOn: binding("transcription", "live_enabled", true))
             Picker("Note timestamps", selection: binding("notes", "anchor", "first_keystroke")) {
@@ -126,8 +130,7 @@ private struct LLMSettings: View {
                         get: { model.configValue("claude", "output_language", default: "fr") },
                         set: { model.setConfig("claude", "output_language", $0) }
                     )) {
-                        Text("French").tag("fr")
-                        Text("English").tag("en")
+                        ForEach(MeetingLanguage.allCases) { Text($0.title).tag($0.rawValue) }
                     }
                     .fixedSize()
                     Spacer()

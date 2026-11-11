@@ -152,6 +152,13 @@ Choose **New Meeting** (⌘N) and fill in the form. Only the meeting type really
 | **In Person** | Everyone is in the room | The mic only |
 | **Hybrid** | Some people in the room, others remote | The mic and the system audio |
 
+### Languages spoken
+
+Tick the languages people will actually speak: French, English, German, Dutch or Spanish. They start as set in **Default meeting languages** in Settings.
+
+- **One language:** everything is transcribed in it. A French voice can never come out as made-up English. But if someone does speak another language, their words are translated into the ticked one.
+- **Several languages:** each stretch of speech is transcribed in its own language, chosen among those ticked. Each extra language makes that choice less sure, especially between close ones such as German and Dutch, so tick only what's needed. French and English together is the most common case.
+
 ### Participants
 
 - **I'm wearing a headset** (Video Call and Hybrid): without a headset, your mic also picks up remote voices. Verbalog removes those duplicates after the meeting.
@@ -213,6 +220,7 @@ This is the most reliable way to name people, because you know who's talking.
 | `@Jim+` | The next person to speak is Jim |
 | `this is Jim` or `Jim speaking` | Same as `@Jim` |
 | `ici c'est Jim`, `c'est Jim qui parle` or `Jim parle` | Same as `@Jim` |
+| `hier ist Jim`, `hier spricht Jim`, `hier is Jim`, `Jim spreekt`, `soy Jim` or `aquí habla Jim` | Same as `@Jim` |
 
 Each hint names that voice **for the whole meeting**, including what they said before you typed it.
 
@@ -235,14 +243,14 @@ Type these in the note field:
 
 Paused time becomes silence, so the timeline stays aligned with your notes.
 
-### Changing the meeting type and participants
+### Changing the meeting type, languages and participants
 
-Under the title, the recording screen shows the type, the counts and the expected names, for example "Hybrid · 4 in the room · 2 remote · Sophie, Marc". Click it to change any of them while recording: someone joins remotely, the count was wrong, a name was missing.
+Under the title, the recording screen shows the type, the languages, the counts and the expected names, for example "Hybrid · FR+EN · 4 in the room · 2 remote · Sophie, Marc". Click it to change any of them while recording: someone joins remotely, the meeting switches to English, the count was wrong, a name was missing.
 
 - Processing reads these values after the meeting, so they apply to the whole recording, not from the moment you change them.
 - **From In Person to Video Call or Hybrid**: system audio starts when you save. Remote voices from before that weren't recorded.
 - **To In Person**: system audio keeps recording, but processing ignores it, including what was already recorded. Switch back if the remote part matters.
-- The live preview keeps the tracks it started with. The final transcript isn't affected.
+- The live preview keeps the tracks and languages it started with. The final transcript isn't affected.
 
 ### Muting your mic
 
@@ -392,7 +400,7 @@ Summaries aren't updated when you correct the transcript. Generate a new one if 
 
 The default report has an executive summary, decisions, actions, open points and commitments. To change it, edit the prompt in Settings › LLM and click **Save**; **Reset** brings back the default. `{{output_language}}` in the prompt is replaced by the chosen language.
 
-> **Summaries are written in French by default**, whatever language the app or the meeting uses. Change **Output language** in Settings › LLM if you want English.
+> **Summaries are written in French by default**, whatever language the app or the meeting uses. Change **Output language** in Settings › LLM for English, German, Dutch or Spanish.
 
 ---
 
@@ -427,7 +435,9 @@ Use `@Name` when you first hear someone speak. It's quick and takes priority ove
 
 ### Languages
 
-Verbalog is built for French, English, or both mixed in one meeting, detected separately for each stretch of speech. Other languages won't transcribe properly.
+Verbalog transcribes French, English, German, Dutch and Spanish, alone or mixed in one meeting. Tick only the languages actually spoken (see [Languages spoken](#languages-spoken)): with French alone, French voices can't be mistaken for English. Other languages aren't supported.
+
+French and English are the most tested. German, Dutch and Spanish rely on the same Whisper model, which handles them well, but they've been checked on synthesized speech only so far.
 
 ---
 
@@ -461,6 +471,7 @@ Open with ⌘,.
 | **Your Name** | Used for your own mic track, and in pseudonymizing |
 | **Transcripts Folder** | Where exports go. Default `~/Verbalog`. Warns if the folder syncs to the cloud |
 | **Default meeting type** | Preselected in the New Meeting form |
+| **Default meeting languages** | Ticked in the New Meeting form. French and English at first |
 | **Reuse audio sources from the last meeting** | Preselects the last microphone and system audio. Everything else starts empty |
 | **Live transcript during meetings** | The preview column |
 | **Note timestamps** | **At first keystroke** (default) or **When saved** |
@@ -473,7 +484,7 @@ Open with ⌘,.
 |---|---|
 | **Your LLM** | A name and address, added to the **Copy and open** buttons |
 | **Summary Prompt** | The instructions sent with the transcript. **Save** applies, **Reset** restores |
-| **Output language** | French (default) or English |
+| **Output language** | French (default), English, German, Dutch or Spanish |
 | **API key**, **Model** | For direct summaries. The key is kept in your Keychain |
 
 ### Privacy
@@ -600,7 +611,7 @@ The audio is kept, and the error is shown on the meeting. `~/.verbalog/backend.l
 - Summaries don't update when you correct the transcript.
 - ⌘Z pressed while typing in the search box may undo a transcript change instead.
 - The glossary doesn't apply to the live preview, and it's a hint rather than a guarantee.
-- Languages other than French and English aren't supported.
+- Only French, English, German, Dutch and Spanish are supported for transcription.
 - Processing jobs run at the same time rather than in a queue.
 
 ---

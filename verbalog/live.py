@@ -18,7 +18,7 @@ from . import audio as au
 from .events import Emit
 from .i18n import t
 from .session import Session
-from .transcribe import ALLOWED_LANGUAGES, is_hallucination
+from .transcribe import is_hallucination, meeting_languages
 
 POLL_SECONDS = 1.0
 MIN_UTTERANCE = 0.8
@@ -109,6 +109,9 @@ def run(session: Session, cfg: dict[str, Any], emit: Emit) -> None:
         tails.append(TrackTail("system", session.system_path))
     live_file = session.path / "live.jsonl"
     model = cfg["transcription"]["live_model"]
+    # Read once: languages changed during the meeting apply to the final transcript.
+    languages = meeting_languages(session.data.get("languages") or cfg["transcription"]["languages"])
+    only = languages[0] if len(languages) == 1 else None
     emit("ready", model=model)
 
     with live_file.open("a", encoding="utf-8") as out:
@@ -127,10 +130,10 @@ def run(session: Session, cfg: dict[str, Any], emit: Emit) -> None:
                 worked = True
                 start, utterance = popped
                 result = mlx_whisper.transcribe(
-                    utterance, path_or_hf_repo=model, language=None, task="transcribe", temperature=0.0,
+                    utterance, path_or_hf_repo=model, language=only, task="transcribe", temperature=0.0,
                     condition_on_previous_text=False, verbose=None,
                 )
-                if result.get("language") not in ALLOWED_LANGUAGES:
+                if result.get("language") not in languages:
                     continue  # a preview can skip what the final transcript will decode properly
                 for seg in result.get("segments", []):
                     text = seg.get("text", "").strip()

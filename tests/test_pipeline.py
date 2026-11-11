@@ -376,17 +376,18 @@ def test_participants_reach_the_whisper_prompt_first():
     assert transcriber.terms == ["Gaspard", "Northwind", "Zylex"]
 
 
-def test_meeting_participants_are_given_to_the_default_transcriber(monkeypatch):
+def test_meeting_participants_and_languages_are_given_to_the_default_transcriber(monkeypatch):
     session, mic, system = visio_session(participants=["Gaspard"])
+    session.set(languages=["es"])
     seen = {}
 
-    def default(cfg, participants=()):
-        seen["participants"] = participants
+    def default(cfg, participants=(), languages=()):
+        seen["participants"], seen["languages"] = participants, languages
         return transcriber_for(mic, system, [make_seg("Bonjour", 0.2, 2.8)], [])
 
     monkeypatch.setattr(pipeline, "default_transcriber", default)
     pipeline.process(session, diarizer=FakeDiarizer({}))
-    assert seen["participants"] == ["Gaspard"]
+    assert seen == {"participants": ["Gaspard"], "languages": ["es"]}
 
 
 def test_overlong_glossary_warns_without_naming_the_terms():
@@ -497,3 +498,35 @@ def test_cli_turns_off_pyannote_telemetry(monkeypatch):
     assert os.environ["PYANNOTE_METRICS_ENABLED"] == "0"
     metrics = pytest.importorskip("pyannote.audio.telemetry.metrics")  # the diarization extra
     assert not metrics.is_metrics_enabled()
+
+
+def test_config_file_keeps_only_what_differs_from_the_defaults():
+    # Saving every default froze them in the file, so improved defaults never reached anyone.
+    config.update({"general": {"user_name": "Camille"}, "notes": {"anchor": "first_keystroke"}})
+    saved = (config.home() / "config.toml").read_text(encoding="utf-8")
+    assert 'user_name = "Camille"' in saved
+    assert "anchor" not in saved and "naming_patterns" not in saved and "glossary_file" in saved  # set by conftest
+    assert config.load()["notes"]["anchor"] == "first_keystroke"
+
+
+def test_naming_patterns_frozen_by_older_versions_follow_the_defaults_again():
+    import tomllib
+
+    import tomli_w
+
+    path = config.home() / "config.toml"
+    data = tomllib.loads(path.read_text(encoding="utf-8"))
+    data["speakers"]["naming_patterns"] = ["ici c'est {nom}", "c'est {nom} qui parle", "{nom} parle", "this is {nom}", "{nom} speaking"]
+    path.write_text(tomli_w.dumps(data), encoding="utf-8")
+    assert "hier ist {nom}" in config.load()["speakers"]["naming_patterns"]
+    custom = ["moi c'est {nom}"]
+    config.update({"speakers": {"naming_patterns": custom}})
+    assert config.load()["speakers"]["naming_patterns"] == custom  # a real choice is kept
+
+
+def test_meeting_languages_reach_the_transcriber(monkeypatch):
+    cfg = config.load()
+    assert pipeline.default_transcriber(cfg).languages == ("fr", "en")
+    assert pipeline.default_transcriber(cfg, languages=["es"]).languages == ("es",)
+    config.update({"transcription": {"languages": ["de", "nl"]}})
+    assert pipeline.default_transcriber(config.load()).languages == ("de", "nl")

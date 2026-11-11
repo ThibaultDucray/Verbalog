@@ -22,9 +22,19 @@ HALLUCINATIONS = (
     "thanks for watching",
     "thank you for watching",
     "subtitles by",
+    "untertitel im auftrag",
+    "untertitelung",
+    "vielen dank furs zuschauen",
+    "ondertiteld door",
+    "ondertiteling",
+    "bedankt voor het kijken",
+    "subtitulos realizados por",
+    "subtitulado por",
+    "gracias por ver el video",
 )
 MIN_AVG_LOGPROB = -1.0  # below this, a segment is noise rather than speech
-ALLOWED_LANGUAGES = ("fr", "en")  # spec: French, English, or both in one meeting
+SUPPORTED_LANGUAGES = ("fr", "en", "de", "nl", "es")
+DEFAULT_LANGUAGES = ("fr", "en")
 MAX_PROMPT_TOKENS = 223  # Whisper keeps only the last ones, so an overlong prompt loses its start
 
 
@@ -140,9 +150,15 @@ def _mean_logprob(result: dict) -> float:
     return sum(scores) / len(scores) if scores else float("-inf")
 
 
+def meeting_languages(chosen: Sequence[str] | None) -> tuple[str, ...]:
+    """The languages ticked for a meeting, among the supported ones; French and English if none."""
+    return tuple(code for code in SUPPORTED_LANGUAGES if code in (chosen or ())) or DEFAULT_LANGUAGES
+
+
 class MlxTranscriber:
-    def __init__(self, model: str, glossary: Sequence[str] = ()):
+    def __init__(self, model: str, glossary: Sequence[str] = (), languages: Sequence[str] = DEFAULT_LANGUAGES):
         self.model = model
+        self.languages = meeting_languages(languages)
         self.terms, self.dropped_terms = fit_glossary(list(glossary))
         self.prompt = build_prompt(self.terms)
 
@@ -162,13 +178,18 @@ class MlxTranscriber:
         )
 
     def _transcribe(self, chunk: np.ndarray) -> dict:
+        # A meeting in one language is decoded in it: a French voice never comes out as
+        # invented English. Anyone speaking another language gets translated, which is the
+        # trade-off the person makes by ticking a single language.
+        only = self.languages[0] if len(self.languages) == 1 else None
         # On hard chunks the prompt can yield "..." or be recited back, losing real speech.
-        result = self._decode(chunk, self.prompt)
-        if result.get("language") not in ALLOWED_LANGUAGES:
-            # Near-silence gets detected as any language ("ありがとうございました"). Trying both
-            # and keeping the likelier one can't translate real speech: its own language wins.
-            return max((self._retry(chunk, lang) for lang in ALLOWED_LANGUAGES), key=_mean_logprob)
-        return self._retry(chunk) if _needs_retry(result, self.prompt, self.terms) else result
+        result = self._decode(chunk, self.prompt, only)
+        if result.get("language") not in self.languages:
+            # Detected outside the meeting's languages: near-silence ("ありがとうございました"), or a
+            # voice mistaken for a close language. Decoding in each of the meeting's languages and
+            # keeping the likelier one can't translate real speech: its own language wins.
+            return max((self._retry(chunk, lang) for lang in self.languages), key=_mean_logprob)
+        return self._retry(chunk, only) if _needs_retry(result, self.prompt, self.terms) else result
 
     def _retry(self, chunk: np.ndarray, language: str | None = None) -> dict:
         # Hard chunks are where names go wrong, so try the bare terms before giving up the hint.

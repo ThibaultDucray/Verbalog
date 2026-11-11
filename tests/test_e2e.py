@@ -90,3 +90,34 @@ def test_hybrid_real_speech_no_translation_no_duplicate(tmp_path):
     print(Path(final["outputs"]["md"]).read_text(encoding="utf-8"))
     assert final["coverage"] >= 0.9, final
     assert final["audio_deleted"], final
+
+
+@pytest.mark.parametrize(
+    ("lang", "voice", "text", "words"),
+    [
+        ("de", "Anna", "Wir haben das Budget intern freigegeben, also können wir mit der zweiten Phase des Projekts beginnen.", ["budget", "phase", "projekts"]),
+        ("nl", "Xander", "We hebben het budget intern goedgekeurd, dus we kunnen beginnen aan de tweede fase van het project.", ["budget", "fase", "project"]),
+        ("es", "Mónica", "Hemos aprobado el presupuesto internamente, así que podemos empezar la segunda fase del proyecto.", ["presupuesto", "fase", "proyecto"]),
+    ],
+)
+def test_german_dutch_spanish_real_speech(tmp_path, lang, voice, text, words):
+    from verbalog.transcribe import MlxTranscriber
+
+    clip = say(tmp_path, voice, text)
+    audio = place(len(clip) / au.SR + 1.5, (0.5, clip))
+    # As ticked for a mixed meeting: the language is detected among three.
+    segments = MlxTranscriber(MODEL, languages=["fr", "en", lang]).transcribe_regions(audio, [(0.0, len(audio) / au.SR)])
+    heard = " ".join(s.text for s in segments).lower()
+    print(lang, heard)
+    assert {s.lang for s in segments} == {lang}, heard
+    assert all(word in heard for word in words), heard
+
+
+def test_single_language_meeting_never_turns_french_into_english(tmp_path):
+    from verbalog.transcribe import MlxTranscriber
+
+    clip = say(tmp_path, "Thomas", FR)
+    audio = place(len(clip) / au.SR + 1.5, (0.5, clip))
+    segments = MlxTranscriber(MODEL, languages=["fr"]).transcribe_regions(audio, [(0.0, len(audio) / au.SR)])
+    heard = " ".join(s.text for s in segments).lower()
+    assert {s.lang for s in segments} == {"fr"} and "enveloppe" in heard, heard

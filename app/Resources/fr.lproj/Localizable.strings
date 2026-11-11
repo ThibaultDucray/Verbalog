@@ -306,3 +306,10 @@
 "Support Again…" = "Contribuer à nouveau…";
 "☕ Support Development…" = "☕ Soutenir le développement…";
 "Verbalog Help" = "Aide Verbalog";
+
+"German" = "Allemand";
+"Dutch" = "Néerlandais";
+"Spanish" = "Espagnol";
+"Languages spoken" = "Langues parlées";
+"Default meeting languages" = "Langues des réunions par défaut";
+"Tick only the languages actually spoken: each extra one makes detection less sure. With a single language, everything is transcribed in it." = "Ne cochez que les langues réellement parlées : chacune en plus rend la détection moins sûre. Avec une seule langue, tout est transcrit dans celle-ci.";

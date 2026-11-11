@@ -24,6 +24,9 @@ struct NewMeetingView: View {
                 TextField("Title", text: $form.title, prompt: Text("Steering committee…"))
                     .font(.title3)
                 MeetingTypePicker(mode: $form.mode)
+                LanguagesPicker(title: "Languages spoken", languages: $form.languages)
+            } footer: {
+                LanguagesHint()
             }
 
             ParticipantsSection(form: $form)
@@ -120,6 +123,7 @@ struct NewMeetingView: View {
 
         if model.config.isEmpty { await model.refreshConfig() }
         form.mode = MeetingMode(rawValue: model.configValue("session", "default_mode", default: "visio")) ?? .visio
+        form.languages = MeetingLanguage.normalized(model.configValue("transcription", "languages", default: ["fr", "en"]))
         let configuredMic: String = model.configValue("capture", "mic_device", default: "default")
         form.micDevice = configuredMic == "default" ? nil : AudioDevices.device(forUIDOrName: configuredMic)?.uid
         let configuredSource: String = model.configValue("capture", "system_source", default: "all")
@@ -209,6 +213,37 @@ struct MeetingTypePicker: View {
             }
         }
         .pickerStyle(.radioGroup)
+    }
+}
+
+/// Any number can be ticked, but at least one stays.
+struct LanguagesPicker: View {
+    let title: LocalizedStringKey
+    @Binding var languages: [String]
+
+    var body: some View {
+        LabeledContent(title) {
+            HStack(spacing: 12) {
+                ForEach(MeetingLanguage.allCases) { language in
+                    Toggle(language.title, isOn: Binding(
+                        get: { languages.contains(language.rawValue) },
+                        set: { ticked in
+                            let codes = ticked ? languages + [language.rawValue] : languages.filter { $0 != language.rawValue }
+                            if !codes.isEmpty { languages = MeetingLanguage.normalized(codes) }
+                        }
+                    ))
+                    .toggleStyle(.checkbox)
+                }
+            }
+        }
+    }
+}
+
+struct LanguagesHint: View {
+    var body: some View {
+        Text("Tick only the languages actually spoken: each extra one makes detection less sure. With a single language, everything is transcribed in it.")
+            .font(.caption)
+            .foregroundStyle(.secondary)
     }
 }
 

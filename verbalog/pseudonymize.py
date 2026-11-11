@@ -144,8 +144,23 @@ class Pseudonymizer:
         return re.sub(rf"(?<!\w)(?:{pattern})(?!\w)", lambda m: self.mapping[m.group(0)], text)
 
 
-SPACY_MODELS = {"fr": "fr_core_news_sm", "en": "en_core_web_sm"}
-_DETERMINERS = re.compile(r"^(?:the|an?|les?|la|l['’]|une?|des?|du|d['’])\s*", re.IGNORECASE)
+SPACY_MODELS = {
+    "fr": "fr_core_news_sm",
+    "en": "en_core_web_sm",
+    "de": "de_core_news_sm",
+    "nl": "nl_core_news_sm",
+    "es": "es_core_news_sm",
+}
+# Articles the models sometimes include in a name: "la Commission", "die Telekom", "het Rijk",
+# "l'Agence". A whole word followed by a space, or an elision: never the start of "Anne" or "Laura".
+_DETERMINERS = re.compile(
+    r"^(?:(?:the|an?|les?|la|une?|des?|du"  # English, French
+    r"|der|die|das|dem|den|ein|eine[mnrs]?"  # German
+    r"|het|een"  # Dutch ("de" above)
+    r"|el|los|las|unos?|unas?|del|al)\s+"  # Spanish
+    r"|[ld]['’]\s*)",
+    re.IGNORECASE,
+)
 
 
 def detect_entities(text_by_language: dict[str, str]) -> list[tuple[str, str]]:

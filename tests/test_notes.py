@@ -37,6 +37,12 @@ def test_natural_language_fr_and_en():
         assert (note.type, note.speaker) == ("speaker", "Jim"), raw
 
 
+def test_natural_language_de_nl_es():
+    for raw in ("hier ist Jim", "Hier spricht Jim", "hier is Jim", "Jim spreekt", "soy Jim", "aquí habla Jim"):
+        note = parse(raw)
+        assert (note.type, note.speaker) == ("speaker", "Jim"), raw
+
+
 def test_sentence_matching_a_pattern_stays_a_note_when_name_is_unknown():
     note = parse("le directeur financier parle")
     assert note.type == "note"

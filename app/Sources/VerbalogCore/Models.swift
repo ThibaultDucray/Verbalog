@@ -30,6 +30,29 @@ public enum MeetingMode: String, Codable, CaseIterable, Identifiable, Sendable {
     public var capturesSystem: Bool { self != .presentiel }
 }
 
+/// Languages a meeting can be transcribed in, as Whisper names them (verbalog/transcribe.py).
+public enum MeetingLanguage: String, CaseIterable, Identifiable, Sendable {
+    case fr, en, de, nl, es
+
+    public var id: String { rawValue }
+
+    public var title: String {
+        switch self {
+        case .fr: L("French")
+        case .en: L("English")
+        case .de: L("German")
+        case .nl: L("Dutch")
+        case .es: L("Spanish")
+        }
+    }
+
+    /// Supported codes in display order; French and English when none, as the backend does.
+    public static func normalized(_ codes: [String]) -> [String] {
+        let chosen = allCases.map(\.rawValue).filter(codes.contains)
+        return chosen.isEmpty ? [MeetingLanguage.fr.rawValue, MeetingLanguage.en.rawValue] : chosen
+    }
+}
+
 public enum SessionStatus: String, Codable, Sendable {
     case recording, recorded, processing, review, done, failed
 }
@@ -49,6 +72,7 @@ public struct SessionMeta: Codable, Identifiable, Hashable, Sendable {
     public var room_count: Int?
     public var remote_count: Int?
     public var participants: [String]?
+    public var languages: [String]?
     public var status: SessionStatus
     public var error: String?
     public var warnings: [String]?

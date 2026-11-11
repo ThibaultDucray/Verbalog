@@ -35,7 +35,7 @@ public struct SessionStore: Sendable {
         return try? JSONDecoder().decode(SessionMeta.self, from: data)
     }
 
-    public func create(title: String, mode: MeetingMode, headset: Bool, roomCount: Int?, remoteCount: Int?, participants: [String], micDevice: String?, systemSource: String?, now: Date = Date()) throws -> SessionMeta {
+    public func create(title: String, mode: MeetingMode, headset: Bool, roomCount: Int?, remoteCount: Int?, participants: [String], languages: [String] = [], micDevice: String?, systemSource: String?, now: Date = Date()) throws -> SessionMeta {
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -67,6 +67,7 @@ public struct SessionStore: Sendable {
         fields["remote_count"] = remoteCount ?? NSNull()
         fields["mic_device"] = micDevice ?? NSNull()
         fields["system_source"] = systemSource ?? NSNull()
+        fields["languages"] = MeetingLanguage.normalized(languages)
         try write(fields, id: id)
         guard let meta = load(id: id) else { throw CocoaError(.fileReadCorruptFile) }
         return meta
