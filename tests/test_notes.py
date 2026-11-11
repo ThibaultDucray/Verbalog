@@ -38,7 +38,8 @@ def test_natural_language_fr_and_en():
 
 
 def test_natural_language_de_nl_es():
-    for raw in ("hier ist Jim", "Hier spricht Jim", "hier is Jim", "Jim spreekt", "soy Jim", "aquí habla Jim"):
+    for raw in ("hier ist Jim", "Hier spricht Jim", "hier is Jim", "Jim spreekt", "soy Jim", "aquí habla Jim",
+                "qui parla Jim", "sono Jim", "aqui fala Jim", "sou Jim"):
         note = parse(raw)
         assert (note.type, note.speaker) == ("speaker", "Jim"), raw
 

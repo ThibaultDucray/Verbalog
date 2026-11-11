@@ -223,18 +223,27 @@ struct LanguagesPicker: View {
 
     var body: some View {
         LabeledContent(title) {
-            HStack(spacing: 12) {
-                ForEach(MeetingLanguage.allCases) { language in
-                    Toggle(language.title, isOn: Binding(
-                        get: { languages.contains(language.rawValue) },
-                        set: { ticked in
-                            let codes = ticked ? languages + [language.rawValue] : languages.filter { $0 != language.rawValue }
-                            if !codes.isEmpty { languages = MeetingLanguage.normalized(codes) }
-                        }
-                    ))
-                    .toggleStyle(.checkbox)
+            // One row when there's room, two otherwise (the Settings window is narrower).
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 12) { boxes(MeetingLanguage.allCases) }
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 12) { boxes(Array(MeetingLanguage.allCases.prefix(4))) }
+                    HStack(spacing: 12) { boxes(Array(MeetingLanguage.allCases.dropFirst(4))) }
                 }
             }
+        }
+    }
+
+    private func boxes(_ languages: [MeetingLanguage]) -> some View {
+        ForEach(languages) { language in
+            Toggle(language.title, isOn: Binding(
+                get: { self.languages.contains(language.rawValue) },
+                set: { ticked in
+                    let codes = ticked ? self.languages + [language.rawValue] : self.languages.filter { $0 != language.rawValue }
+                    if !codes.isEmpty { self.languages = MeetingLanguage.normalized(codes) }
+                }
+            ))
+            .toggleStyle(.checkbox)
         }
     }
 }

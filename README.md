@@ -3,7 +3,7 @@
 Local meeting notes for macOS. Verbalog records a meeting on your Mac, transcribes it, works out who said what, and lets you correct the result. **Audio never leaves the Mac.**
 
 - Records your mic and the call's audio (Teams, Zoom, Meet…), a room, or both
-- Transcribes locally with Whisper, accelerated by Apple's MLX, in French, English, German, Dutch and Spanish, alone or mixed in one meeting
+- Transcribes locally with Whisper, accelerated by Apple's MLX, in French, English, German, Dutch, Spanish, Italian and Portuguese, alone or mixed in one meeting
 - Separates voices with pyannote, then lets you name each speaker from short audio extracts
 - Timestamped notes while you listen: actions, decisions, questions, bookmarks, private notes
 - Exports Markdown and JSON, and prepares an optional summary through the LLM of your choice, pseudonymized first and previewed before anything is sent

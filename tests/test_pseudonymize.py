@@ -113,7 +113,7 @@ def test_names_starting_like_an_article_are_kept_whole(monkeypatch):
     # stayed in clear text. Real articles still go: "la Poste", "l'Agence", "die Telekom".
     from verbalog.pseudonymize import _DETERMINERS
 
-    for name in ("Anne", "Laura", "Dupont", "Thea", "Lesage", "Elena", "Dieter", "Hetty"):
+    for name in ("Anne", "Laura", "Dupont", "Thea", "Lesage", "Elena", "Dieter", "Hetty", "Oscar", "Ilaria", "Umberto", "Asunción"):
         assert _DETERMINERS.sub("", name) == name
     for raw, name in (("la Poste", "Poste"), ("l'Agence", "Agence"), ("The Guardian", "Guardian"),
                       ("die Telekom", "Telekom"), ("het Rijksmuseum", "Rijksmuseum"), ("el Banco Santander", "Banco Santander")):
@@ -121,20 +121,21 @@ def test_names_starting_like_an_article_are_kept_whole(monkeypatch):
 
 
 def test_entity_detection_in_german_dutch_and_spanish():
-    for model in ("de_core_news_sm", "nl_core_news_sm", "es_core_news_sm"):
+    for model in ("de_core_news_sm", "nl_core_news_sm", "es_core_news_sm", "pt_core_news_sm"):
         pytest.importorskip(model)
     texts = {
         "de": "Ich habe gestern mit Anna Schmidt von Siemens telefoniert. Wir senden das Angebot am Freitag.",
         "nl": "Ik heb gisteren met Pieter de Vries van Philips gebeld. We sturen de offerte vrijdag.",
         "es": "Ayer hablé con María García de Telefónica. Enviaremos la oferta el viernes.",
+        "pt": "Ontem falei com João Silva da Petrobras. Enviaremos a proposta na sexta-feira.",
     }
     # The small models sometimes take the company into the name ("María García de Telefónica"):
     # the whole span is replaced, which still removes the name.
     found = detect_entities(texts)
     out = Pseudonymizer().apply_entities(" ".join(texts.values()), sorted(found))
-    for name in ("Schmidt", "Vries", "García", "Siemens"):
+    for name in ("Schmidt", "Vries", "García", "Siemens", "Silva"):
         assert name not in out, (name, out)
-    for word in ("Ich habe gestern", "Wir senden", "Ayer hablé", "Enviaremos la oferta"):
+    for word in ("Ich habe gestern", "Wir senden", "Ayer hablé", "Enviaremos la oferta", "Ontem falei", "Enviaremos a proposta"):
         assert word in out, (word, out)
 
 

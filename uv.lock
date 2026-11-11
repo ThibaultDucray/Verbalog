@@ -1649,6 +1649,14 @@ wheels = [
 ]
 
 [[package]]
+name = "pt-core-news-sm"
+version = "3.8.0"
+source = { url = "https://github.com/explosion/spacy-models/releases/download/pt_core_news_sm-3.8.0/pt_core_news_sm-3.8.0-py3-none-any.whl" }
+wheels = [
+    { url = "https://github.com/explosion/spacy-models/releases/download/pt_core_news_sm-3.8.0/pt_core_news_sm-3.8.0-py3-none-any.whl", hash = "sha256:c304fa04db3af73cd08a250feacf560506e15a2ec2469bd1b09f06847f6b455c" },
+]
+
+[[package]]
 name = "pyannote-audio"
 version = "4.0.7"
 source = { registry = "https://pypi.org/simple" }
@@ -2481,6 +2489,7 @@ ner = [
     { name = "es-core-news-sm" },
     { name = "fr-core-news-sm" },
     { name = "nl-core-news-sm" },
+    { name = "pt-core-news-sm" },
     { name = "spacy" },
 ]
 
@@ -2502,6 +2511,7 @@ requires-dist = [
     { name = "mlx-whisper", specifier = ">=0.4.3" },
     { name = "nl-core-news-sm", marker = "extra == 'ner'", url = "https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-3.8.0/nl_core_news_sm-3.8.0-py3-none-any.whl" },
     { name = "numpy", specifier = ">=2" },
+    { name = "pt-core-news-sm", marker = "extra == 'ner'", url = "https://github.com/explosion/spacy-models/releases/download/pt_core_news_sm-3.8.0/pt_core_news_sm-3.8.0-py3-none-any.whl" },
     { name = "pyannote-audio", marker = "extra == 'diarization'", specifier = ">=4.0" },
     { name = "spacy", marker = "extra == 'ner'", specifier = ">=3.8,<3.9" },
     { name = "tomli-w", specifier = ">=1.2" },

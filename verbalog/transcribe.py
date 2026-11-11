@@ -31,9 +31,15 @@ HALLUCINATIONS = (
     "subtitulos realizados por",
     "subtitulado por",
     "gracias por ver el video",
+    "sottotitoli creati dalla comunita",
+    "sottotitoli a cura di",
+    "grazie per la visione",
+    "legendas pela comunidade",
+    "legendas por",
+    "obrigado por assistir",
 )
 MIN_AVG_LOGPROB = -1.0  # below this, a segment is noise rather than speech
-SUPPORTED_LANGUAGES = ("fr", "en", "de", "nl", "es")
+SUPPORTED_LANGUAGES = ("fr", "en", "de", "nl", "es", "it", "pt")
 DEFAULT_LANGUAGES = ("fr", "en")
 MAX_PROMPT_TOKENS = 223  # Whisper keeps only the last ones, so an overlong prompt loses its start
 

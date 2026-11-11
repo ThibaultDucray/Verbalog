@@ -98,9 +98,11 @@ def test_hybrid_real_speech_no_translation_no_duplicate(tmp_path):
         ("de", "Anna", "Wir haben das Budget intern freigegeben, also können wir mit der zweiten Phase des Projekts beginnen.", ["budget", "phase", "projekts"]),
         ("nl", "Xander", "We hebben het budget intern goedgekeurd, dus we kunnen beginnen aan de tweede fase van het project.", ["budget", "fase", "project"]),
         ("es", "Mónica", "Hemos aprobado el presupuesto internamente, así que podemos empezar la segunda fase del proyecto.", ["presupuesto", "fase", "proyecto"]),
+        ("it", "Alice", "Abbiamo approvato il budget internamente, quindi possiamo iniziare la seconda fase del progetto.", ["budget", "fase", "progetto"]),
+        ("pt", "Joana", "Aprovámos o orçamento internamente, por isso podemos começar a segunda fase do projeto.", ["orçamento", "fase", "projeto"]),
     ],
 )
-def test_german_dutch_spanish_real_speech(tmp_path, lang, voice, text, words):
+def test_other_languages_real_speech(tmp_path, lang, voice, text, words):
     from verbalog.transcribe import MlxTranscriber
 
     clip = say(tmp_path, voice, text)

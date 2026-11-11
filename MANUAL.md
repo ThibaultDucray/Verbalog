@@ -154,7 +154,7 @@ Choose **New Meeting** (⌘N) and fill in the form. Only the meeting type really
 
 ### Languages spoken
 
-Tick the languages people will actually speak: French, English, German, Dutch or Spanish. They start as set in **Default meeting languages** in Settings.
+Tick the languages people will actually speak: French, English, German, Dutch, Spanish, Italian or Portuguese. They start as set in **Default meeting languages** in Settings.
 
 - **One language:** everything is transcribed in it. A French voice can never come out as made-up English. But if someone does speak another language, their words are translated into the ticked one.
 - **Several languages:** each stretch of speech is transcribed in its own language, chosen among those ticked. Each extra language makes that choice less sure, especially between close ones such as German and Dutch, so tick only what's needed. French and English together is the most common case.
@@ -220,7 +220,7 @@ This is the most reliable way to name people, because you know who's talking.
 | `@Jim+` | The next person to speak is Jim |
 | `this is Jim` or `Jim speaking` | Same as `@Jim` |
 | `ici c'est Jim`, `c'est Jim qui parle` or `Jim parle` | Same as `@Jim` |
-| `hier ist Jim`, `hier spricht Jim`, `hier is Jim`, `Jim spreekt`, `soy Jim` or `aquí habla Jim` | Same as `@Jim` |
+| `hier ist Jim`, `hier spricht Jim`, `hier is Jim`, `Jim spreekt`, `soy Jim`, `aquí habla Jim`, `sono Jim`, `qui parla Jim`, `sou Jim` or `aqui fala Jim` | Same as `@Jim` |
 
 Each hint names that voice **for the whole meeting**, including what they said before you typed it.
 
@@ -400,7 +400,7 @@ Summaries aren't updated when you correct the transcript. Generate a new one if 
 
 The default report has an executive summary, decisions, actions, open points and commitments. To change it, edit the prompt in Settings › LLM and click **Save**; **Reset** brings back the default. `{{output_language}}` in the prompt is replaced by the chosen language.
 
-> **Summaries are written in French by default**, whatever language the app or the meeting uses. Change **Output language** in Settings › LLM for English, German, Dutch or Spanish.
+> **Summaries are written in French by default**, whatever language the app or the meeting uses. Change **Output language** in Settings › LLM for another language.
 
 ---
 
@@ -435,9 +435,11 @@ Use `@Name` when you first hear someone speak. It's quick and takes priority ove
 
 ### Languages
 
-Verbalog transcribes French, English, German, Dutch and Spanish, alone or mixed in one meeting. Tick only the languages actually spoken (see [Languages spoken](#languages-spoken)): with French alone, French voices can't be mistaken for English. Other languages aren't supported.
+Verbalog transcribes French, English, German, Dutch, Spanish, Italian and Portuguese, alone or mixed in one meeting. Tick only the languages actually spoken (see [Languages spoken](#languages-spoken)): with French alone, French voices can't be mistaken for English. Other languages aren't supported.
 
-French and English are the most tested. German, Dutch and Spanish rely on the same Whisper model, which handles them well, but they've been checked on synthesized speech only so far.
+French and English are the most tested. The other languages rely on the same Whisper model, which handles them well, but they've been checked on synthesized speech only so far.
+
+**Italian and pseudonymization:** the automatic name detection that helps pseudonymize text sent to an LLM isn't available in Italian, because the only Italian model forbids commercial use. In Italian meetings, list people and companies in **Expected participants** and in your sensitive terms: those are always pseudonymized.
 
 ---
 
@@ -484,7 +486,7 @@ Open with ⌘,.
 |---|---|
 | **Your LLM** | A name and address, added to the **Copy and open** buttons |
 | **Summary Prompt** | The instructions sent with the transcript. **Save** applies, **Reset** restores |
-| **Output language** | French (default), English, German, Dutch or Spanish |
+| **Output language** | French (default), English, German, Dutch, Spanish, Italian or Portuguese |
 | **API key**, **Model** | For direct summaries. The key is kept in your Keychain |
 
 ### Privacy
@@ -611,7 +613,8 @@ The audio is kept, and the error is shown on the meeting. `~/.verbalog/backend.l
 - Summaries don't update when you correct the transcript.
 - ⌘Z pressed while typing in the search box may undo a transcript change instead.
 - The glossary doesn't apply to the live preview, and it's a hint rather than a guarantee.
-- Only French, English, German, Dutch and Spanish are supported for transcription.
+- Only French, English, German, Dutch, Spanish, Italian and Portuguese are supported for transcription.
+- Name detection for pseudonymization doesn't cover Italian.
 - Processing jobs run at the same time rather than in a queue.
 
 ---

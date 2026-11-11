@@ -179,7 +179,7 @@ def test_chunk_detected_outside_french_and_english_is_decoded_as_both(monkeypatc
 
 
 def test_meeting_languages_keep_supported_ones_in_a_stable_order():
-    assert meeting_languages(["es", "xx", "fr"]) == ("fr", "es")
+    assert meeting_languages(["pt", "es", "xx", "fr", "it"]) == ("fr", "es", "it", "pt")
     assert meeting_languages([]) == ("fr", "en")
     assert meeting_languages(None) == ("fr", "en")
 
@@ -224,7 +224,13 @@ def test_subtitle_credits_are_dropped_in_every_supported_language():
         "Bedankt voor het kijken.",
         "Subtítulos realizados por la comunidad de Amara.org",
         "¡Gracias por ver el video!",
+        "Sottotitoli creati dalla comunità Amara.org",
+        "Grazie per la visione!",
+        "Legendas pela comunidade Amara.org",
+        "Obrigado por assistir!",
     ):
         assert is_hallucination(text, GOOD), text
     assert not is_hallucination("Wir haben das Budget intern freigegeben.", GOOD)
     assert not is_hallucination("Hemos validado el presupuesto.", GOOD)
+    assert not is_hallucination("Abbiamo approvato il budget.", GOOD)
+    assert not is_hallucination("Aprovamos o orçamento.", GOOD)

@@ -306,7 +306,7 @@ def load_prompt(cfg: dict[str, Any]) -> str:
     """The user's copy if there is one, else the packaged default."""
     custom = config.home() / "prompts" / "synthese.md"
     text = custom.read_text(encoding="utf-8") if custom.exists() else default_prompt()
-    languages = {"fr": t("French"), "en": t("English"), "de": t("German"), "nl": t("Dutch"), "es": t("Spanish")}
+    languages = {"fr": t("French"), "en": t("English"), "de": t("German"), "nl": t("Dutch"), "es": t("Spanish"), "it": t("Italian"), "pt": t("Portuguese")}
     output_language = cfg["claude"]["output_language"]
     return text.replace("{{output_language}}", languages.get(output_language, output_language))
 

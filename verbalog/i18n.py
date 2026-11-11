@@ -39,6 +39,8 @@ FR = {
     "German": "allemand",
     "Dutch": "néerlandais",
     "Spanish": "espagnol",
+    "Italian": "italien",
+    "Portuguese": "portugais",
     # Audio validation
     "the transcript file is missing or empty": "le fichier de transcription est absent ou vide",
     "no speech transcribed although the audio isn't silent": "aucune parole transcrite alors que l'audio n'est pas silencieux",

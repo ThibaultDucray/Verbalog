@@ -33,6 +33,10 @@ DEFAULTS: dict[str, Any] = {
             "{nom} spreekt",
             "soy {nom}",
             "aquí habla {nom}",
+            "qui parla {nom}",
+            "sono {nom}",
+            "aqui fala {nom}",
+            "sou {nom}",
         ],
         "lookback_seconds": 5,
         "voiceprints_dir": "~/.verbalog/voiceprints",
@@ -44,7 +48,7 @@ DEFAULTS: dict[str, Any] = {
         "live_enabled": True,
         "live_model": "mlx-community/whisper-small-mlx",
         "glossary_file": "~/.verbalog/glossary.txt",
-        # Ticked by default for a new meeting, among "fr", "en", "de", "nl", "es".
+        # Ticked by default for a new meeting, among "fr", "en", "de", "nl", "es", "it", "pt".
         "languages": ["fr", "en"],
     },
     "diarization": {"model": "pyannote/speaker-diarization-community-1", "device": "mps"},

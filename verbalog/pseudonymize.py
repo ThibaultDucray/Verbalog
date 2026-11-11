@@ -150,6 +150,8 @@ SPACY_MODELS = {
     "de": "de_core_news_sm",
     "nl": "nl_core_news_sm",
     "es": "es_core_news_sm",
+    "pt": "pt_core_news_sm",
+    # No Italian: it_core_news_sm is CC BY-NC-SA, and Verbalog is used in work meetings.
 }
 # Articles the models sometimes include in a name: "la Commission", "die Telekom", "het Rijk",
 # "l'Agence". A whole word followed by a space, or an elision: never the start of "Anne" or "Laura".
@@ -157,7 +159,9 @@ _DETERMINERS = re.compile(
     r"^(?:(?:the|an?|les?|la|une?|des?|du"  # English, French
     r"|der|die|das|dem|den|ein|eine[mnrs]?"  # German
     r"|het|een"  # Dutch ("de" above)
-    r"|el|los|las|unos?|unas?|del|al)\s+"  # Spanish
+    r"|el|los|las|unos?|unas?|del|al"  # Spanish
+    r"|il|lo|gli|uno"  # Italian (others above)
+    r"|o|os|a|as|um|uma|uns|umas|do|da|dos|das)\s+"  # Portuguese
     r"|[ld]['’]\s*)",
     re.IGNORECASE,
 )

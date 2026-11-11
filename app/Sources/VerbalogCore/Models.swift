@@ -32,7 +32,7 @@ public enum MeetingMode: String, Codable, CaseIterable, Identifiable, Sendable {
 
 /// Languages a meeting can be transcribed in, as Whisper names them (verbalog/transcribe.py).
 public enum MeetingLanguage: String, CaseIterable, Identifiable, Sendable {
-    case fr, en, de, nl, es
+    case fr, en, de, nl, es, it, pt
 
     public var id: String { rawValue }
 
@@ -43,6 +43,8 @@ public enum MeetingLanguage: String, CaseIterable, Identifiable, Sendable {
         case .de: L("German")
         case .nl: L("Dutch")
         case .es: L("Spanish")
+        case .it: L("Italian")
+        case .pt: L("Portuguese")
         }
     }
 
