@@ -37,6 +37,8 @@ Releases are Developer ID-signed, notarized disk images, published on GitHub Rel
 
 The version comes from the tag. The build number is the commit count, so it only ever grows.
 
+Until the secrets are set up, or when a release for the tag was already published by hand, the workflow skips the build and says why in the run's summary, without touching anything.
+
 ## Building a release locally
 
 ```sh
