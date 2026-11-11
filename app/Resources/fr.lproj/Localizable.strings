@@ -295,3 +295,14 @@
 "Update" = "Mettre à jour";
 "Install" = "Installer";
 "Downloads Python and the packages Verbalog needs, once: about 2 GB on disk." = "Télécharge Python et les paquets dont Verbalog a besoin, une seule fois : environ 2 Go sur le disque.";
+
+"Enjoying Verbalog?" = "Verbalog vous est utile ?";
+"You have already turned %lld meetings into notes with Verbalog. The app is free and open source. If it saves you time, please consider supporting its continued development." = "Vous avez déjà transformé %lld réunions en notes avec Verbalog. L'app est gratuite et open source. Si elle vous fait gagner du temps, pensez à soutenir son développement.";
+"Support Development" = "Soutenir le développement";
+"Maybe Later" = "Plus tard";
+"I've Already Supported" = "J'ai déjà contribué";
+"Don't Show This Again" = "Ne plus afficher";
+"❤️ Thanks for Supporting Verbalog" = "❤️ Merci de soutenir Verbalog";
+"Support Again…" = "Contribuer à nouveau…";
+"☕ Support Development…" = "☕ Soutenir le développement…";
+"Verbalog Help" = "Aide Verbalog";

@@ -4,6 +4,7 @@ import VerbalogCore
 struct RootView: View {
     @EnvironmentObject private var model: AppModel
     @EnvironmentObject private var recorder: RecordingController
+    @EnvironmentObject private var support: SupportModel
     @State private var search = ""
 
     private var filtered: [SessionMeta] {
@@ -36,6 +37,12 @@ struct RootView: View {
             .navigationSplitViewColumnWidth(min: 230, ideal: 270, max: 360)
         } detail: {
             detail
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    // Never over a recording or while something is being processed.
+                    if support.inviting && !recorder.isActive && model.jobs.isEmpty {
+                        SupportInvitation()
+                    }
+                }
         }
         .alert("Error", isPresented: Binding(get: { model.errorMessage != nil }, set: { if !$0 { model.errorMessage = nil } })) {
             Button("OK", role: .cancel) {}

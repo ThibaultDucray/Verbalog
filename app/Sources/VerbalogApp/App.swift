@@ -13,6 +13,7 @@ struct VerbalogApp: App {
             RootView()
                 .environmentObject(model)
                 .environmentObject(model.recorder)
+                .environmentObject(model.support)
                 .frame(minWidth: 960, minHeight: 620)
         }
         .commands {
@@ -20,6 +21,14 @@ struct VerbalogApp: App {
                 Button("New Meeting") { model.selection = .newMeeting }
                     .keyboardShortcut("n")
                     .disabled(model.recorder.isActive)
+            }
+            CommandGroup(replacing: .help) {
+                // The manual lives on GitHub, always matching the latest release.
+                if let manual = (Bundle.main.object(forInfoDictionaryKey: "VerbalogHelpURL") as? String).flatMap({ URL(string: $0) }) {
+                    Button("Verbalog Help") { NSWorkspace.shared.open(manual) }
+                        .keyboardShortcut("?")
+                }
+                SupportMenu(support: model.support)
             }
         }
 

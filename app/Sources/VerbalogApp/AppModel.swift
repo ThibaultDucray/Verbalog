@@ -21,6 +21,7 @@ final class AppModel: ObservableObject {
 
     let store = SessionStore()
     let recorder = RecordingController()
+    let support = SupportModel()
 
     @Published var sessions: [SessionMeta] = []
     @Published var selection: Selection?
@@ -259,6 +260,10 @@ final class AppModel: ObservableObject {
                         self?.jobs[id]?.label = label
                         self?.jobs[id]?.fraction = fraction
                     }
+                }
+                // Processing ends in review when speakers need naming; done means exported.
+                if self?.store.load(id: id)?.status == .done {
+                    self?.support.meetingCompleted(id)
                 }
             } catch is CancellationError {
                 try? self?.store.update(id: id, ["status": SessionStatus.recorded.rawValue])

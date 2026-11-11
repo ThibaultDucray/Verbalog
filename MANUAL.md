@@ -45,7 +45,7 @@ Drag Verbalog from Applications to the Trash, then delete what it installed and 
 |---|---|
 | `~/Library/Application Support/Verbalog` | Python and packages |
 | `~/Library/Caches/Verbalog` | Download and bytecode caches |
-| `~/Library/Preferences/app.verbalog.Verbalog.plist` | Interface preferences: language, remembered audio sources, your custom LLM site |
+| `~/Library/Preferences/app.verbalog.Verbalog.plist` | Interface preferences: language, remembered audio sources, your custom LLM site, support reminders |
 | `~/.cache/huggingface/hub` | The models, in the `models--mlx-community--whisper-*` and `models--pyannote--*` folders. Other apps may share this cache |
 | `~/.verbalog` | Your settings, lists, voiceprints and meetings not finished yet |
 | `~/Verbalog`, or the folder chosen in Settings | Your exported transcripts: keep them if you want them |
@@ -131,6 +131,8 @@ Each meeting shows an icon for its state:
 | Hourglass | Recorded but not transcribed yet |
 | Red triangle | Processing failed; the audio is kept |
 | No icon | Finished |
+
+The **Help** menu opens this manual on GitHub (**Verbalog Help**, ⌘?) and has the **Support Development** options (see [Supporting Verbalog](#supporting-verbalog)).
 
 Verbalog also has a **menu bar icon**. During a meeting it shows the elapsed time and lets you take a note, pause or end the meeting. Otherwise it offers New Meeting and Open Verbalog, and shows the progress of any processing.
 
@@ -498,6 +500,7 @@ See [Voiceprints](#10-voiceprints).
 - Downloading models, once, from Hugging Face
 - Sending to an LLM, only when you choose to and only the text you've previewed
 - Opening the LLM site in your browser, if you use those buttons
+- Opening the support page or this manual in your browser, from the Help menu or the support invitation
 
 **Where things are:**
 
@@ -517,6 +520,20 @@ See [Voiceprints](#10-voiceprints).
 - Turn on FileVault. On an SSD, deleted audio can only be reliably protected by disk encryption.
 - Keep the transcripts folder out of iCloud, Dropbox and similar. `~/Documents` is often synced to iCloud.
 - Don't send the `.json` file anywhere: it contains your private notes.
+
+---
+
+### Supporting Verbalog
+
+Verbalog is free and open source, and stays fully functional whether or not you contribute. If it saves you time, you can support its development with a voluntary contribution: **Help › ☕ Support Development…** opens a Stripe payment page in your browser, where you choose the amount. A contribution doesn't unlock anything.
+
+After 10 finished meetings, Verbalog shows a discreet invitation above the meeting, never during a recording or processing:
+
+- **Support Development** opens the payment page.
+- **Maybe Later** waits for 20 more meetings or 60 days, whichever comes first.
+- **I've Already Supported** and **Don't Show This Again** stop the invitations for good.
+
+Verbalog never checks whether you paid and sends nothing anywhere: the choice is stored only in its preferences on this Mac. **I've Already Supported** is also in the Help menu.
 
 ---
 

@@ -18,5 +18,7 @@
     <key>NSMicrophoneUsageDescription</key><string>Verbalog records the microphone during your meetings. Audio stays on this Mac and is deleted after transcription.</string>
     <key>NSAudioCaptureUsageDescription</key><string>Verbalog records the audio of your video calls. Audio stays on this Mac and is deleted after transcription.</string>
     <key>VerbalogRepoRoot</key><string>$(SRCROOT)</string>
+    <key>VerbalogHelpURL</key><string>https://github.com/ThibaultDucray/Verbalog/blob/main/MANUAL.md</string>
+    <key>VerbalogSupportURL</key><string>https://buy.stripe.com/aFa3cx8dV4ht6uicYxaMU00</string>
 </dict>
 </plist>

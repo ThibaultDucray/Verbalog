@@ -229,6 +229,37 @@ final class CoreTests: XCTestCase {
         XCTAssertEqual(updated.environment["PYTHONPATH"], backend.path)
     }
 
+    func testSupportInvitationFollowsTheModel() throws {
+        let suite = "verbalog.tests.\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let policy = SupportPolicy(defaults: defaults)
+        let start = Date(timeIntervalSince1970: 1_800_000_000)
+
+        // Nothing before the tenth meeting, and a meeting exported twice counts once.
+        for index in 1...9 { XCTAssertFalse(policy.meetingCompleted("m\(index)", now: start)) }
+        XCTAssertFalse(policy.meetingCompleted("m9", now: start))
+        XCTAssertTrue(policy.meetingCompleted("m10", now: start))
+
+        // Maybe Later: 20 more meetings, or 60 days, whichever comes first.
+        policy.snooze(now: start)
+        for index in 11...29 { XCTAssertFalse(policy.meetingCompleted("m\(index)", now: start)) }
+        XCTAssertTrue(policy.meetingCompleted("m30", now: start))
+        policy.snooze(now: start)
+        XCTAssertFalse(policy.meetingCompleted("m31", now: start.addingTimeInterval(59 * 86_400)))
+        XCTAssertTrue(policy.meetingCompleted("m32", now: start.addingTimeInterval(60 * 86_400)))
+
+        // A supporter, or someone who said no, is never asked again.
+        policy.markSupporter(now: start)
+        XCTAssertTrue(policy.isSupporter)
+        XCTAssertFalse(policy.meetingCompleted("m100", now: start.addingTimeInterval(400 * 86_400)))
+
+        let other = SupportPolicy(defaults: defaults)
+        defaults.removeObject(forKey: "support.supporterSince")
+        XCTAssertFalse(other.isSupporter)
+        XCTAssertFalse(other.meetingCompleted("m101", now: start.addingTimeInterval(400 * 86_400)), "prompts stay disabled")
+    }
+
     func testCancellingTheTaskStopsTheProcess() async throws {
         let root = tempHome()
         let bin = root.appendingPathComponent(".venv/bin")
