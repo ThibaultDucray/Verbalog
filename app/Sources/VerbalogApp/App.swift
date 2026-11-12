@@ -24,6 +24,8 @@ struct VerbalogApp: App {
                 Button("New Meeting") { model.selection = .newMeeting }
                     .keyboardShortcut("n")
                     .disabled(model.recorder.isActive)
+                Button("Import Recording…") { model.selection = .importRecording }
+                    .keyboardShortcut("i")
             }
             CommandGroup(replacing: .help) {
                 // The manual lives on GitHub, always matching the latest release.

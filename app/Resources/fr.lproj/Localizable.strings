@@ -315,3 +315,21 @@
 "Tick only the languages actually spoken: each extra one makes detection less sure. With a single language, everything is transcribed in it." = "Ne cochez que les langues réellement parlées : chacune en plus rend la détection moins sûre. Avec une seule langue, tout est transcrit dans celle-ci.";
 "Italian" = "Italien";
 "Portuguese" = "Portugais";
+
+"Import Recording" = "Importer un enregistrement";
+"Import Recording…" = "Importer un enregistrement…";
+"Imported recording" = "Enregistrement importé";
+"File" = "Fichier";
+"Choose Another…" = "Choisir un autre…";
+"Meeting date" = "Date de la réunion";
+"Drop an audio or video file here" = "Déposez un fichier audio ou vidéo ici";
+"WAV, M4A, MP3, AIFF, FLAC, or a video such as MP4 or MOV" = "WAV, M4A, MP3, AIFF, FLAC, ou une vidéo comme MP4 ou MOV";
+"Choose a File…" = "Choisir un fichier…";
+"Verbalog transcribes a copy and deletes it afterwards, like any recording. Your file is left as it is." = "Verbalog transcrit une copie et la supprime ensuite, comme tout enregistrement. Votre fichier reste tel quel.";
+"People speaking" = "Personnes qui parlent";
+"All voices are on one track, so Verbalog separates them by sound alone: knowing how many people speak helps a lot." = "Toutes les voix sont sur une seule piste : Verbalog les sépare uniquement au son, et connaître le nombre de personnes aide beaucoup.";
+"Import and Transcribe" = "Importer et transcrire";
+"This file has no audio track." = "Ce fichier n'a pas de piste audio.";
+"Can't read this file: %@" = "Lecture du fichier impossible : %@";
+"unsupported audio format" = "format audio non pris en charge";
+"reading stopped" = "lecture interrompue";

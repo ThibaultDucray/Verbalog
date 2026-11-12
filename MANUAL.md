@@ -2,6 +2,13 @@
 
 Verbalog records your meetings on your Mac, transcribes them, works out who said what, and lets you correct the result. Audio never leaves the Mac. Text only leaves if you choose to send it to an LLM, and you see exactly what would be sent first.
 
+**How it works:**
+
+1. **Record or import** the meeting: on your Mac.
+2. **Transcribe** it: on your Mac.
+3. **Identify the speakers**: on your Mac.
+4. **Use the result** as you choose: read it, export it, or send it to an LLM or any other tool. This last step is yours: Verbalog only prepares the text, pseudonymized and shown to you first. Once it leaves your Mac, it's under the terms of whatever tool you send it to, and you're responsible for that choice.
+
 **Contents**
 
 1. [Installation](#1-installation)
@@ -118,6 +125,7 @@ The Status & Models screen also flags:
 ## 3. The main window
 
 - **New Meeting**, at the top of the sidebar, starts a meeting. It's unavailable while one is recording.
+- **Import Recording** (⌘I) turns an audio or video file recorded elsewhere into a meeting (see [Importing a recording](#importing-a-recording)).
 - **Meetings** lists your meetings, newest first. The sidebar's search looks through titles only.
 - **Status & Models** is at the bottom of the sidebar.
 
@@ -139,6 +147,19 @@ Verbalog also has a **menu bar icon**. During a meeting it shows the elapsed tim
 ---
 
 ## 4. Starting a meeting
+
+### Importing a recording
+
+To transcribe a meeting recorded elsewhere, such as a call's recording, a voice memo or a dictaphone file, choose **Import Recording** in the sidebar or **File › Import Recording…** (⌘I), then drop the file or click **Choose a File…**.
+
+- **Files:** WAV, M4A, MP3, AIFF, FLAC, or the sound of a video such as MP4 or MOV.
+- **Title and date:** the title defaults to the file name, the date to the file's creation date. Change them if needed.
+- **Languages spoken, people speaking, expected participants:** as for a new meeting. All the voices are on one track, so Verbalog separates them by sound alone: giving the number of people speaking helps a lot.
+- **Import and Transcribe** copies the sound into a new meeting and processes it straight away, then the usual review follows.
+
+Your file is only read, never changed or deleted. Verbalog deletes its own copy after transcription, like any recording. Imported meetings show **Imported recording** instead of a meeting type, and their notes are empty, since nobody took notes while they were recorded.
+
+### Recording a meeting
 
 Choose **New Meeting** (⌘N) and fill in the form. Only the meeting type really matters; everything else helps quality.
 

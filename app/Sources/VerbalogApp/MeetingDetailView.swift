@@ -171,7 +171,7 @@ struct MeetingDetailView: View {
                 if let date = session.createdDate {
                     Text(date.formatted(date: .long, time: .shortened))
                 }
-                Text(session.mode.title)
+                Text(session.imported == true ? L("Imported recording") : session.mode.title)
                 if let duration = transcript?.duration {
                     Text(TimeFormat.minutes(duration))
                 }

@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Thibault Ducray
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+import AVFoundation
 import Foundation
 import XCTest
 @testable import VerbalogCaptureKit
@@ -13,6 +14,51 @@ final class CaptureTests: XCTestCase {
     private func samples(of url: URL) throws -> [Int16] {
         let data = try Data(contentsOf: url).dropFirst(WavWriter.headerSize)
         return data.withUnsafeBytes { Array($0.bindMemory(to: Int16.self)) }
+    }
+
+    /// Two seconds of a 440 Hz tone, stereo at 44.1 kHz, in the given container.
+    private func toneFile(_ ext: String, settings: [String: Any]) throws -> URL {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + "." + ext)
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2)!
+        let file = try AVAudioFile(forWriting: url, settings: settings)
+        let frames = AVAudioFrameCount(44_100 * 2)
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames)!
+        buffer.frameLength = frames
+        for channel in 0..<2 {
+            for frame in 0..<Int(frames) {
+                buffer.floatChannelData![channel][frame] = 0.5 * sin(2 * .pi * 440 * Float(frame) / 44_100)
+            }
+        }
+        try file.write(from: buffer)
+        return url
+    }
+
+    func testImportConvertsAnyFileToTheRecordingFormat() async throws {
+        let sources = [
+            try toneFile("aiff", settings: [AVFormatIDKey: kAudioFormatLinearPCM, AVSampleRateKey: 44_100, AVNumberOfChannelsKey: 2, AVLinearPCMBitDepthKey: 16, AVLinearPCMIsBigEndianKey: true]),
+            try toneFile("m4a", settings: [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 44_100, AVNumberOfChannelsKey: 2]),
+        ]
+        for source in sources {
+            let before = try Data(contentsOf: source)
+            let target = tempWav()
+            let duration = try await AudioImporter.convert(from: source, to: target)
+            XCTAssertEqual(duration, 2, accuracy: 0.1, source.pathExtension)
+            let data = try Data(contentsOf: target)
+            XCTAssertEqual(data[24..<28].withUnsafeBytes { $0.loadUnaligned(as: UInt32.self) }, 16_000)
+            XCTAssertEqual(data[22..<24].withUnsafeBytes { $0.loadUnaligned(as: UInt16.self) }, 1, "mono")
+            let peak = try samples(of: target).map { abs(Int($0)) }.max() ?? 0
+            XCTAssertGreaterThan(peak, 10_000, "the tone survives the conversion")
+            XCTAssertEqual(try Data(contentsOf: source), before, "the imported file is left untouched")
+        }
+    }
+
+    func testImportRejectsAFileWithoutAudio() async throws {
+        let text = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".mp3")
+        try Data("not audio".utf8).write(to: text)
+        do {
+            try await AudioImporter.convert(from: text, to: tempWav())
+            XCTFail("should throw")
+        } catch {}
     }
 
     func testHeaderAfterClose() throws {

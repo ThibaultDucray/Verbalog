@@ -78,6 +78,8 @@ public struct SessionMeta: Codable, Identifiable, Hashable, Sendable {
     public var remote_count: Int?
     public var participants: [String]?
     public var languages: [String]?
+    /// Made from an audio file rather than recorded in Verbalog.
+    public var imported: Bool?
     public var status: SessionStatus
     public var error: String?
     public var warnings: [String]?

@@ -22,6 +22,8 @@ struct RootView: View {
                     .tag(Selection.newMeeting)
                     .selectionDisabled(recorder.isActive)
                     .foregroundStyle(recorder.isActive ? .secondary : .primary)
+                Label("Import Recording", systemImage: "square.and.arrow.down")
+                    .tag(Selection.importRecording)
 
                 Section("Meetings") {
                     if filtered.isEmpty {
@@ -69,6 +71,8 @@ struct RootView: View {
             }
         case .newMeeting:
             NewMeetingView()
+        case .importRecording:
+            ImportView()
         case .setup:
             SetupView()
         case .session(let id):

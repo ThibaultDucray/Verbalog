@@ -4,10 +4,12 @@
 import AppKit
 import Foundation
 import SwiftUI
+import VerbalogCaptureKit
 import VerbalogCore
 
 enum Selection: Hashable {
     case newMeeting
+    case importRecording
     case setup
     case session(String)
 }
@@ -236,6 +238,40 @@ final class AppModel: ObservableObject {
     }
 
     // MARK: Processing
+
+    /// A recording made elsewhere: copied into a new meeting as its only track, then processed
+    /// like an in-person meeting, every voice told apart by diarization. The file itself is only read.
+    func importRecording(_ file: URL, form: MeetingForm, date: Date) async throws {
+        let trimmed = form.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let meta = try store.create(
+            title: trimmed.isEmpty ? file.deletingPathExtension().lastPathComponent : trimmed,
+            mode: .presentiel,
+            headset: false,
+            roomCount: form.roomCount,
+            remoteCount: nil,
+            participants: [String].participants(from: form.participants),
+            languages: form.languages,
+            micDevice: nil,
+            systemSource: nil,
+            now: date
+        )
+        do {
+            let duration = try await AudioImporter.convert(from: file, to: store.audioURL(id: meta.id, track: "mic"))
+            try store.update(id: meta.id, [
+                "status": SessionStatus.recorded.rawValue,
+                "duration": duration,
+                "imported": true,
+                "started_epoch_ms": Int64(date.timeIntervalSince1970 * 1000),
+            ])
+        } catch {
+            // Only the meeting folder just created: never the file being imported.
+            try? FileManager.default.removeItem(at: store.directory(meta.id))
+            throw error
+        }
+        reloadSessions()
+        selection = .session(meta.id)
+        process(meta.id)
+    }
 
     func process(_ id: String) {
         guard jobs[id] == nil else { return }

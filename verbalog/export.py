@@ -36,7 +36,8 @@ def _participants(doc: dict[str, Any], user_name: str) -> list[str]:
         details = []
         if user_name and speaker["display"] == user_name:
             details.append(t("organizer"))
-        if speaker.get("origin") in ("salle", "distant"):
+        # An imported file is one mixed track: nobody is "in the room" or "remote" there.
+        if speaker.get("origin") in ("salle", "distant") and not doc.get("imported"):
             details.append(t({"salle": "room", "distant": "remote"}[speaker["origin"]]))
         if not speaker.get("name"):
             details.append(t("unidentified"))
@@ -51,7 +52,7 @@ def _note_block(note: dict[str, Any]) -> str:
 
 def render_markdown(doc: dict[str, Any], user_name: str = "") -> str:
     lines = ["---", f"title: {_yaml_str(doc['title'])}", f"date: {doc['date']}", f"duration: {hms(doc['duration'])}"]
-    lines.append(f"context: {doc['context']}")
+    lines.append(f"context: {'import' if doc.get('imported') else doc['context']}")
     lines.append(f"languages: [{', '.join(doc.get('languages', []))}]")
     participants = _participants(doc, user_name)
     if participants:

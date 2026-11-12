@@ -221,6 +221,7 @@ def _process(session: Session, cfg: dict[str, Any], emit: Emit, transcriber: Tra
         "date": session.data["created_at"],
         "duration": round(max(durations), 1),
         "context": session.mode,
+        **({"imported": True} if session.data.get("imported") else {}),
         "headset": headset,
         "languages": languages,
         "expected_participants": expected,

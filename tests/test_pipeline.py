@@ -533,3 +533,17 @@ def test_meeting_languages_reach_the_transcriber(monkeypatch):
     assert pipeline.default_transcriber(cfg, languages=["es"]).languages == ("es",)
     config.update({"transcription": {"languages": ["de", "nl"]}})
     assert pipeline.default_transcriber(config.load()).languages == ("de", "nl")
+
+
+def test_imported_recording_is_one_mixed_track_in_the_export():
+    session = Session.create("Import", "presentiel", room_count=2)
+    session.set(imported=True)
+    mic = np.concatenate([speech(3, seed=1), np.zeros(16000, np.float32), speech(3, seed=2)])
+    au.write_wav(session.mic_path, mic)
+    transcriber = transcriber_for(mic, None, [make_seg("Bonjour", 0.5, 2.5), make_seg("Merci", 4.5, 6.5)], [])
+    diarizer = FakeDiarizer({len(mic): [SpeakerTurn(0, 3, "A"), SpeakerTurn(4, 7, "B")]})
+    pipeline.process(session, transcriber=transcriber, diarizer=diarizer)
+    result = pipeline.finalize(Session.load(session.id))
+    md = Path(result["outputs"]["md"]).read_text(encoding="utf-8")
+    assert "context: import" in md
+    assert "room" not in md and "salle" not in md
