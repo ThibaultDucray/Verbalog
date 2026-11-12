@@ -19,15 +19,8 @@ struct RecordingView: View {
         meta?.mode.capturesSystem ?? true
     }
 
-    /// Kept in sight, so a wrong type or count from the start form gets noticed.
     private var detailsSummary: String {
-        guard let meta else { return "" }
-        var parts = [meta.mode.title, MeetingLanguage.normalized(meta.languages ?? []).map { $0.uppercased() }.joined(separator: "+")]
-        if meta.mode != .visio, let count = meta.room_count { parts.append(L("\(count) in the room")) }
-        if meta.mode != .presentiel, let count = meta.remote_count { parts.append(L("\(count) remote")) }
-        let names = meta.participants ?? []
-        parts.append(names.isEmpty ? L("no names") : names.joined(separator: ", "))
-        return parts.joined(separator: " · ")
+        meta?.detailsSummary ?? ""
     }
 
     var body: some View {
@@ -55,7 +48,7 @@ struct RecordingView: View {
         }
         .sheet(isPresented: $recorder.editingDetails) {
             if let meta {
-                MeetingDetailsSheet(form: MeetingForm(details: meta), capturesSystem: recorder.capturesSystem) {
+                MeetingDetailsSheet(form: MeetingForm(details: meta), context: .recording(capturesSystem: recorder.capturesSystem)) {
                     recorder.updateDetails($0)
                 }
             }
@@ -243,26 +236,62 @@ struct RecordingDetailsCommand: View {
     }
 }
 
-/// Type, counts and names, editable while recording. The title has its own editor.
+extension SessionMeta {
+    /// Kept in sight, so a wrong type or count from the start form gets noticed.
+    var detailsSummary: String {
+        var parts = [imported == true ? L("Imported recording") : mode.title,
+                     MeetingLanguage.normalized(languages ?? []).map { $0.uppercased() }.joined(separator: "+")]
+        if mode != .visio, let count = room_count {
+            parts.append(imported == true ? L("\(count) speaking") : L("\(count) in the room"))
+        }
+        if mode != .presentiel, let count = remote_count { parts.append(L("\(count) remote")) }
+        let names = participants ?? []
+        parts.append(names.isEmpty ? L("no names") : names.joined(separator: ", "))
+        return parts.joined(separator: " · ")
+    }
+}
+
+/// Type, languages, counts and names: editable while recording (the title has its own editor
+/// there), and before processing, title included.
 struct MeetingDetailsSheet: View {
+    enum Context {
+        case recording(capturesSystem: Bool)
+        case recorded(hasSystemAudio: Bool, imported: Bool)
+    }
+
     @Environment(\.dismiss) private var dismiss
     @State private var form: MeetingForm
     private let original: MeetingForm
-    private let capturesSystem: Bool
+    private let context: Context
     private let save: (MeetingForm) -> Void
 
-    init(form: MeetingForm, capturesSystem: Bool, save: @escaping (MeetingForm) -> Void) {
+    init(form: MeetingForm, context: Context, save: @escaping (MeetingForm) -> Void) {
         _form = State(initialValue: form)
         original = form
-        self.capturesSystem = capturesSystem
+        self.context = context
         self.save = save
+    }
+
+    private var isRecorded: Bool {
+        if case .recorded = context { return true }
+        return false
+    }
+
+    private var isImported: Bool {
+        if case .recorded(_, true) = context { return true }
+        return false
     }
 
     var body: some View {
         VStack(spacing: 0) {
             Form {
                 Section {
-                    MeetingTypePicker(mode: $form.mode)
+                    if isRecorded {
+                        TextField("Title", text: $form.title)
+                    }
+                    if !isImported {
+                        MeetingTypePicker(mode: $form.mode)
+                    }
                     LanguagesPicker(title: "Languages spoken", languages: $form.languages)
                 } footer: {
                     VStack(alignment: .leading, spacing: 4) {
@@ -290,7 +319,7 @@ struct MeetingDetailsSheet: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .keyboardShortcut(.defaultAction)
-                .disabled(form == original)
+                .disabled(form == original || form.title.trimmingCharacters(in: .whitespaces).isEmpty)
             }
             .padding(14)
         }
@@ -298,11 +327,22 @@ struct MeetingDetailsSheet: View {
     }
 
     private var modeNotice: String? {
-        if form.mode.capturesSystem && !capturesSystem {
-            return L("System audio starts when you save: remote voices before that weren't recorded.")
-        }
-        if form.mode == .presentiel && original.mode != .presentiel {
-            return L("In Person ignores the system audio, including what's already been recorded.")
+        switch context {
+        case .recording(let capturesSystem):
+            if form.mode.capturesSystem && !capturesSystem {
+                return L("System audio starts when you save: remote voices before that weren't recorded.")
+            }
+            if form.mode == .presentiel && original.mode != .presentiel {
+                return L("In Person ignores the system audio, including what's already been recorded.")
+            }
+        case .recorded(let hasSystemAudio, let imported):
+            guard !imported else { return nil }
+            if form.mode.capturesSystem && !hasSystemAudio {
+                return L("No system audio was recorded for this meeting: only the mic will be transcribed.")
+            }
+            if form.mode == .presentiel && hasSystemAudio {
+                return L("In Person ignores the recorded system audio: remote voices won't be transcribed.")
+            }
         }
         return nil
     }

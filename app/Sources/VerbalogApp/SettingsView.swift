@@ -50,6 +50,12 @@ private struct GeneralSettings: View {
             ))
             Toggle("Reuse audio sources from the last meeting", isOn: binding("session", "remember_last", true))
             Toggle("Live transcript during meetings", isOn: binding("transcription", "live_enabled", true))
+            VStack(alignment: .leading, spacing: 2) {
+                Toggle("Process meetings as soon as they end", isOn: binding("session", "auto_process", true))
+                Text("Turn off to record several meetings in a row and process them later: each one waits on its page, with Start Processing.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
             Picker("Note timestamps", selection: binding("notes", "anchor", "first_keystroke")) {
                 Text("At first keystroke").tag("first_keystroke")
                 Text("When saved").tag("enter")

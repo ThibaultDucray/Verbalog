@@ -288,7 +288,7 @@ While muted, you get three reminders so you don't forget: an orange banner in th
 
 ### Ending
 
-Click **End**, type `/stop`, or use the menu bar. Processing starts by itself.
+Click **End**, type `/stop`, or use the menu bar. Processing starts by itself, unless **Process meetings as soon as they end** is off in Settings: then the meeting waits, with **Start Processing**, so you can record several meetings in a row and process them later.
 
 ---
 
@@ -298,9 +298,11 @@ Click **End**, type `/stop`, or use the menu bar. Processing starts by itself.
 
 Verbalog separates the voices, transcribes, removes duplicates if needed, and merges everything. It all runs locally. An hour-long meeting takes a few minutes.
 
-You can start a new meeting while another is being processed. Jobs aren't queued, so they run at the same time and the Mac may slow down.
+You can start a new meeting while another is being processed. Meetings are processed one at a time: the others show **Waiting for the other meetings to be processed…** and start in turn.
 
 **Cancel** stops processing and keeps the audio. The meeting then shows **Start Processing**, which you can use whenever you like. The same screen appears after a failure, or after a recording recovered from a crash.
+
+Until it's processed, a meeting's title, type, languages, counts and names can still be changed: click **Edit Details…** under the title. Processing uses these values, so fix a wrong count or a missing language before starting it.
 
 ### The review screen: Speakers to Identify
 
@@ -510,6 +512,7 @@ Open with ⌘,.
 | **Default meeting languages** | Ticked in the New Meeting form. French and English at first |
 | **Reuse audio sources from the last meeting** | Preselects the last microphone and system audio. Everything else starts empty |
 | **Live transcript during meetings** | The preview column |
+| **Process meetings as soon as they end** | On by default. Off: meetings wait for **Start Processing**, to record several in a row |
 | **Note timestamps** | **At first keystroke** (default) or **When saved** |
 | **Keep audio after transcription** | Not recommended; keeps recordings on disk |
 | **Whisper model**, **Diarization model** | Model names. Download any new one from Status & Models |

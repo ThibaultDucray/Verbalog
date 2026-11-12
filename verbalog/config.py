@@ -22,7 +22,7 @@ DEFAULTS: dict[str, Any] = {
         "keep_audio": False,
         "language": "en",  # interface, messages and exports: "en" | "fr"
     },
-    "session": {"default_mode": "visio", "remember_last": True},
+    "session": {"default_mode": "visio", "remember_last": True, "auto_process": True},
     "speakers": {
         "naming_patterns": [
             "ici c'est {nom}",

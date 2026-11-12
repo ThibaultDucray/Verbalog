@@ -50,10 +50,22 @@ struct ProcessingView: View {
 struct PendingView: View {
     @EnvironmentObject private var model: AppModel
     let session: SessionMeta
+    @State private var editingDetails = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text(session.title).font(.title2.weight(.semibold))
+            VStack(alignment: .leading, spacing: 6) {
+                Text(session.title).font(.title2.weight(.semibold))
+                HStack(alignment: .firstTextBaseline, spacing: 12) {
+                    Label(session.detailsSummary, systemImage: "person.2")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .textSelection(.enabled)
+                    Button("Edit Details…", systemImage: "slider.horizontal.3") { editingDetails = true }
+                        .help("Title, meeting type, languages, number and names of participants: processing uses them")
+                        .fixedSize()
+                }
+            }
             if session.status == .failed, let error = session.error {
                 Label(error, systemImage: "xmark.octagon.fill")
                     .symbolRenderingMode(.multicolor)
@@ -85,6 +97,21 @@ struct PendingView: View {
         .padding(24)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle(session.title)
+        .sheet(isPresented: $editingDetails) {
+            MeetingDetailsSheet(
+                form: MeetingForm(details: session),
+                context: .recorded(
+                    hasSystemAudio: FileManager.default.fileExists(atPath: model.store.audioURL(id: session.id, track: "system").path),
+                    imported: session.imported == true
+                )
+            ) { form in
+                do {
+                    try model.updateDetails(session.id, form: form, includingTitle: true)
+                } catch {
+                    model.errorMessage = L("Meeting details not saved: \(error.localizedDescription)")
+                }
+            }
+        }
     }
 }
 

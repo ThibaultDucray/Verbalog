@@ -300,22 +300,12 @@ final class RecordingController: ObservableObject {
     /// values once the meeting has ended, so they apply to the whole recording.
     func updateDetails(_ form: MeetingForm) {
         guard let id = sessionID, let model else { return }
-        let roomCount = form.mode == .visio ? nil : form.roomCount
-        let remoteCount = form.mode == .presentiel ? nil : form.remoteCount
         do {
-            try model.store.update(id: id, [
-                "mode": form.mode.rawValue,
-                "headset": form.headset,
-                "room_count": roomCount.map { $0 as Any } ?? NSNull(),
-                "remote_count": remoteCount.map { $0 as Any } ?? NSNull(),
-                "participants": [String].participants(from: form.participants),
-                "languages": MeetingLanguage.normalized(form.languages),
-            ])
+            try model.updateDetails(id, form: form, includingTitle: false)
         } catch {
             warnings.append(L("Meeting details not saved: \(error.localizedDescription)"))
             return
         }
-        model.reloadSessions()
 
         // An in-person meeting had no system audio: start it now that remote people are expected.
         guard form.mode.capturesSystem, !capturesSystem, let capture else { return }
@@ -345,7 +335,8 @@ final class RecordingController: ObservableObject {
         sessionID = nil
         phase = .idle
         model?.reloadSessions()
-        if processAfterwards {
+        // Off in Settings: several meetings in a row, processed later from each one's page.
+        if processAfterwards, model?.configValue("session", "auto_process", default: true) ?? true {
             model?.process(id)
         }
     }

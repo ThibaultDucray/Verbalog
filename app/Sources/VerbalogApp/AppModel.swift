@@ -31,6 +31,9 @@ final class AppModel: ObservableObject {
     @Published var sessions: [SessionMeta] = []
     @Published var selection: Selection?
     @Published var jobs: [String: JobProgress] = [:]
+    /// Meetings waiting to be processed, the first one running: one at a time, since each
+    /// needs Whisper and pyannote in memory.
+    private var processQueue: [String] = []
     @Published var doctor: DoctorReport?
     @Published var config: [String: Any] = [:]
     @Published var defaultPrompt = ""
@@ -275,7 +278,27 @@ final class AppModel: ObservableObject {
 
     func process(_ id: String) {
         guard jobs[id] == nil else { return }
-        runJob(id, label: L("Preparing…"), arguments: ["process", id], failureStatus: .failed)
+        processQueue.append(id)
+        runJob(id, label: processQueue.count > 1 ? L("Waiting for the other meetings to be processed…") : L("Preparing…"),
+               arguments: ["process", id], failureStatus: .failed, queued: true)
+    }
+
+    /// Saves what the details sheet edits, during the meeting or before processing.
+    func updateDetails(_ id: String, form: MeetingForm, includingTitle: Bool) throws {
+        let roomCount = form.mode == .visio ? nil : form.roomCount
+        let remoteCount = form.mode == .presentiel ? nil : form.remoteCount
+        var fields: [String: Any] = [
+            "mode": form.mode.rawValue,
+            "headset": form.headset,
+            "room_count": roomCount.map { $0 as Any } ?? NSNull(),
+            "remote_count": remoteCount.map { $0 as Any } ?? NSNull(),
+            "participants": [String].participants(from: form.participants),
+            "languages": MeetingLanguage.normalized(form.languages),
+        ]
+        let title = form.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        if includingTitle, !title.isEmpty { fields["title"] = title }
+        try store.update(id: id, fields)
+        reloadSessions()
     }
 
     func finalize(_ id: String, names: [String: String], merges: [[String]]) {
@@ -286,11 +309,19 @@ final class AppModel: ObservableObject {
         runJob(id, label: L("Export…"), arguments: ["finalize", id, "--decisions", decisions], failureStatus: nil)
     }
 
-    private func runJob(_ id: String, label: String, arguments: [String], failureStatus: SessionStatus?) {
+    private func runJob(_ id: String, label: String, arguments: [String], failureStatus: SessionStatus?, queued: Bool = false) {
         let client = backend
         jobs[id] = JobProgress(label: label, fraction: 0)
         let task = Task { [weak self] in
+            defer { if queued { self?.processQueue.removeAll { $0 == id } } }
             do {
+                if queued {
+                    // Cancelling while waiting throws out of the sleep.
+                    while let self, self.processQueue.first != id {
+                        try await Task.sleep(for: .milliseconds(300))
+                    }
+                    self?.jobs[id]?.label = L("Preparing…")
+                }
                 _ = try await client.run(arguments) { [weak self] event in
                     guard event.name == "progress" else { return }
                     let label = event.fields["label"] as? String ?? ""
