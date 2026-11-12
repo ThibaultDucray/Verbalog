@@ -204,7 +204,7 @@ If you leave the title empty, the meeting is called "Meeting". You can rename it
 
 ## 5. During a meeting
 
-The recording screen shows the timer, level meters, **Pause** and **End** at the top, with two columns below.
+The recording screen shows the timer, level meters, **Mute Mic**, **Pause** and **End** at the top. Below them are the title, the meeting details and **Edit Details…**, then two columns.
 
 ### Live column
 

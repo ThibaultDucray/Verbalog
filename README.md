@@ -8,6 +8,8 @@ Local meeting notes for macOS. Verbalog records a meeting on your Mac, transcrib
 - Transcribes locally with Whisper, accelerated by Apple's MLX, in French, English, German, Dutch, Spanish, Italian and Portuguese, alone or mixed in one meeting
 - Separates voices with pyannote, then lets you name each speaker from short audio extracts
 - Timestamped notes while you listen: actions, decisions, questions, bookmarks, private notes
+- Meeting details stay editable until processing: type, languages, number and names of participants, if someone joins or the meeting switches language
+- Processes each meeting when it ends, or later if you prefer, to record several meetings in a row
 - Exports Markdown and JSON, and prepares an optional summary through the LLM of your choice, pseudonymized first and previewed before anything is sent
 
 Free and open source, with no account, no subscription and no tracking.
@@ -59,7 +61,8 @@ Let participants know they're being recorded. Recording people without their kno
   | `/mute` `/unmute` | stop or resume recording your mic only (⌃⌥M from any app) |
   | `/pause` `/resume` `/stop` `/title …` `/participants …` `/details` | commands |
 
-- **After a meeting**: processing starts by itself. If speakers remain unnamed, a review screen shows their quotes and lets you replay them, name them or merge them. Validating it exports the files and deletes the audio.
+- **During a meeting, or before processing it**: **Edit Details…** (⇧⌘D, or `/details`) changes the meeting type, languages, and the number and names of participants. Processing uses them.
+- **After a meeting**: processing starts by itself, unless you turn that off in Settings to process meetings later, one after the other. If speakers remain unnamed, a review screen shows their quotes and lets you replay them, name them or merge them. Validating it exports the files and deletes the audio.
 - **Sending to an LLM**: *Send to LLM* shows the exact text that would leave the Mac, pseudonymized by default. Copy it, save it, or open Claude, ChatGPT, Gemini, Mistral or your own URL, then paste the response back to restore the real names. With an Anthropic API key, the app can also generate the summary directly.
 
 The [user manual](MANUAL.md) covers everything else.
