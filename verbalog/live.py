@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Rolling transcript of the recording in progress, for display only.
 
 It tails the growing WAVs and sends each utterance through a small Whisper model.

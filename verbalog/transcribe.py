@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """mlx-whisper transcription of speech regions, each detected in its own language."""
 
 from __future__ import annotations

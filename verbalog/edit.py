@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Corrections after processing: reattribute, rewrite or delete speech, with undo.
 
 Every edit regenerates the exports from the JSON, without transcribing again.

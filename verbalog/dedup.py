@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Remove from the mic track what the room mic picked up from the loudspeakers.
 
 A mic segment is an echo when it matches the system track at the same moment,

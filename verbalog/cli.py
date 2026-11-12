@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Command-line entry point. Every command speaks NDJSON on stdout (see events.py)."""
 
 from __future__ import annotations

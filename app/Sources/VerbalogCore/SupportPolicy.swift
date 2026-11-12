@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Thibault Ducray
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 import Foundation
 
 /// When to invite people to support development (Verbalog-Support-Development-Model.md).

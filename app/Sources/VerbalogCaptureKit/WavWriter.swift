@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Thibault Ducray
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 import Foundation
 
 /// Streams 16-bit mono 16 kHz PCM to disk. The header is refreshed about once a second,

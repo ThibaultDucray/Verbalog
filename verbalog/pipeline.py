@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Orchestration: process a recorded session, then finalize it after review."""
 
 from __future__ import annotations

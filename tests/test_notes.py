@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from verbalog.config import DEFAULTS
 from verbalog.notes import match_participant, parse_note
 

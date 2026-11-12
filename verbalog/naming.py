@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Attach names to speaker labels.
 
 Priority: live hints, then voiceprints, then the review screen. Unnamed speakers get a numbered placeholder.

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Parse notes.jsonl: typed prefixes, live speaker naming hints, name matching."""
 
 from __future__ import annotations

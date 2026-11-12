@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """NDJSON event stream consumed by the SwiftUI app.
 
 ML libraries print progress bars and logs to stdout. `init_protocol` keeps a

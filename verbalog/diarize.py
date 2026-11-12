@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """pyannote speaker diarization, run from the local cache once the model is downloaded."""
 
 from __future__ import annotations

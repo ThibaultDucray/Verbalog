@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from verbalog import merge, naming
 from verbalog.model_types import Segment, SpeakerTurn, Word
 from verbalog.notes import Note

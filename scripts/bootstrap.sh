@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Installs the Python backend into .venv. Models are downloaded separately, from the app or `verbalog setup`.
 set -euo pipefail
 cd "$(dirname "$0")/.."

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """WAV I/O and energy-based speech detection. Tracks are always 16-bit, mono, 16 kHz."""
 
 from __future__ import annotations

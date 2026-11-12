@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Replace sensitive terms before any text leaves the machine.
 
 The alias table lives next to the session and is never sent. It's reused between

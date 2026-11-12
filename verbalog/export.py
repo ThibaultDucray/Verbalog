@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """The Markdown meant for the LLM, and the JSON kept for reprocessing."""
 
 from __future__ import annotations

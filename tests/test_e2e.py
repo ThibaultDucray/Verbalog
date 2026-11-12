@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Real Whisper on real speech (macOS `say` voices). Run with: pytest -m e2e"""
 
 import json

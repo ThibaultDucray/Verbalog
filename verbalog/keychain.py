@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Secrets: passed by the app through the environment, or read from the Keychain for CLI use."""
 
 from __future__ import annotations

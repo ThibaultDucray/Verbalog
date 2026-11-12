@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Thibault Ducray
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Square artwork -> .iconset folder. macOS doesn't mask .icns files, so the rounded
 // shape, margin and shadow of Apple's icon grid have to be in the images themselves.
 // Usage: swift make-iconset.swift artwork.png output.iconset

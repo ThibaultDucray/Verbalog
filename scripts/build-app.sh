@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Builds Verbalog.app.
 #
 #   scripts/build-app.sh [debug|release]   build/Verbalog.app, for this Mac: the app runs the

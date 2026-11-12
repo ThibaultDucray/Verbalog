@@ -6,6 +6,11 @@ Thanks for helping. Verbalog handles recordings of real conversations, so a few 
 
 - **No real meeting data, ever.** Don't attach recordings, transcripts, notes or logs from real meetings to issues or pull requests. Tests use synthesized audio and made-up names; keep it that way.
 - **Nothing leaves the Mac without the user asking.** Every network connection is listed in the manual's [privacy section](MANUAL.md#12-privacy-and-your-data). A change that adds one must be opt-in, and must update that list. The same goes for dependencies: turn off any telemetry they ship (see `verbalog/cli.py` for pyannote).
+- **Licence header.** Every source file starts with these two lines, after any `#!` line (`#` instead of `//` in Python and shell). A test checks it.
+  ```swift
+  // SPDX-FileCopyrightText: 2026 Thibault Ducray
+  // SPDX-License-Identifier: GPL-3.0-or-later
+  ```
 - **English first.** Interface strings, messages and docs are written in English, then translated to French (see [Languages](#languages)).
 
 ## Building from source

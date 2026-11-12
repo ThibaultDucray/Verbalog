@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Thibault Ducray
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 @preconcurrency import AVFoundation
 
 /// Any input format to the tracks' 16 kHz mono, and its level.

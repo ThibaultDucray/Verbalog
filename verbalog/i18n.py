@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Backend messages and exports, in the interface's language (`general.language` in the config).
 
 English is the source language, as in the app; French lives in `FR` below.

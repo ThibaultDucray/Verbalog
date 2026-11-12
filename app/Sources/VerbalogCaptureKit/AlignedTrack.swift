@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Thibault Ducray
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 import Foundation
 
 /// Keeps a track's file position locked to the session clock.

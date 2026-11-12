@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Builds, notarizes and packages a release: build/dist/Verbalog-<version>.dmg.
 #
 #   scripts/release.sh 0.2.0

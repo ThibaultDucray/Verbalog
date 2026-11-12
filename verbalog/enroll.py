@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Voiceprints: biometric data, encrypted at rest and always deletable (GDPR art. 9)."""
 
 from __future__ import annotations

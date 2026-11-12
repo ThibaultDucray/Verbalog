@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """The adapter against pyannote's real data types. The gated model itself needs a Hugging Face token."""
 
 from types import SimpleNamespace
