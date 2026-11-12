@@ -163,6 +163,8 @@ Your file is only read, never changed or deleted. Verbalog deletes its own copy 
 
 Choose **New Meeting** (⌘N) and fill in the form. Only the meeting type really matters; everything else helps quality.
 
+![The New Meeting form](screenshots/Verbalog%20-%202%20-%20new%20meeting.png)
+
 > Let participants know they're being recorded. Recording people without their knowledge may be illegal where you are.
 
 ### Meeting type
@@ -329,6 +331,8 @@ If every speaker is already named, no review screen appears and this check runs 
 
 A finished meeting has three views, chosen in the toolbar: **Transcript**, **Notes** and **Summary**.
 
+![A finished meeting, Transcript view](screenshots/Verbalog%20-%201%20-%20transcript.png)
+
 The header shows the date, meeting type, duration and languages, plus any warnings. Click the title to rename the meeting; its exported files are renamed too.
 
 ### Finding things
@@ -361,7 +365,11 @@ Every correction immediately updates the exported Markdown and JSON files.
 
 This lists your notes in time order, including private ones. Speaker hints like `@Jim` aren't shown.
 
+![The Notes view](screenshots/Verbalog%20-%203%20-%20notes.png)
+
 ### Export menu
+
+![The Export menu](screenshots/Verbalog%20-%205%20-%20share.png)
 
 | Item | Result |
 |---|---|
@@ -414,6 +422,8 @@ Before sending work material to any service, check its retention policy and any 
 ### Reading the summary
 
 The saved summary appears in the **Summary** view, with **Copy** and **Show in Finder**, and as a `_synthese.md` file next to the transcript. Saving a new one replaces the old one.
+
+![The Summary view](screenshots/Verbalog%20-%204%20-%20summary.png)
 
 Summaries aren't updated when you correct the transcript. Generate a new one if your changes matter.
 
@@ -487,6 +497,8 @@ If several names are available for one voice, your `@Jim` hints win over voicepr
 Open with ⌘,.
 
 ### General
+
+![Settings, General tab](screenshots/Verbalog%20-%206%20-%20settings.png)
 
 | Setting | Effect |
 |---|---|
