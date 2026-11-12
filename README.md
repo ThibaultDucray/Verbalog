@@ -57,7 +57,7 @@ Let participants know they're being recorded. Recording people without their kno
   | `@Jim+` | the next person to speak is Jim |
   | empty line | bookmark |
   | `/mute` `/unmute` | stop or resume recording your mic only (⌃⌥M from any app) |
-  | `/pause` `/resume` `/stop` `/title …` `/participants …` | commands |
+  | `/pause` `/resume` `/stop` `/title …` `/participants …` `/details` | commands |
 
 - **After a meeting**: processing starts by itself. If speakers remain unnamed, a review screen shows their quotes and lets you replay them, name them or merge them. Validating it exports the files and deletes the audio.
 - **Sending to an LLM**: *Send to LLM* shows the exact text that would leave the Mac, pseudonymized by default. Copy it, save it, or open Claude, ChatGPT, Gemini, Mistral or your own URL, then paste the response back to restore the real names. With an Anthropic API key, the app can also generate the summary directly.

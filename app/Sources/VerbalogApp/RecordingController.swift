@@ -64,6 +64,8 @@ final class RecordingController: ObservableObject {
 
     @Published private(set) var phase: Phase = .idle
     @Published private(set) var sessionID: String?
+    /// The meeting details sheet, also opened from the menu and with /details.
+    @Published var editingDetails = false
     @Published private(set) var levels = AudioLevels()
     @Published private(set) var elapsed: Double = 0
     @Published private(set) var notes: [LocalNote] = []
@@ -253,8 +255,10 @@ final class RecordingController: ObservableObject {
             rename(argument)
         case "/participants" where !argument.isEmpty:
             setParticipants(argument)
+        case "/details", "/participants", "/languages", "/type":
+            showDetails()
         default:
-            warnings.append(L("Unknown command: \(parts[0]). Available: /stop, /pause, /resume, /mute, /unmute, /title, /participants."))
+            warnings.append(L("Unknown command: \(parts[0]). Available: /stop, /pause, /resume, /mute, /unmute, /title, /participants, /details."))
         }
     }
 
@@ -276,6 +280,14 @@ final class RecordingController: ObservableObject {
         title = newTitle
         try? model?.store.update(id: id, ["title": newTitle])
         model?.reloadSessions()
+    }
+
+    /// Opens the details sheet on the meeting in progress, whatever the window shows.
+    func showDetails() {
+        guard let id = sessionID, isActive else { return }
+        model?.selection = .session(id)
+        NSApp.activate()
+        editingDetails = true
     }
 
     func setParticipants(_ text: String) {

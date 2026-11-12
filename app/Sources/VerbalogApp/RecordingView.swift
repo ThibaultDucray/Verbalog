@@ -10,7 +10,6 @@ struct RecordingView: View {
     @FocusState private var inputFocused: Bool
     @State private var editingTitle = false
     @State private var titleDraft = ""
-    @State private var editingDetails = false
 
     private var meta: SessionMeta? {
         recorder.sessionID.flatMap { model.meta($0) }
@@ -54,7 +53,7 @@ struct RecordingView: View {
             Button("Rename") { recorder.rename(titleDraft) }
             Button("Cancel", role: .cancel) {}
         }
-        .sheet(isPresented: $editingDetails) {
+        .sheet(isPresented: $recorder.editingDetails) {
             if let meta {
                 MeetingDetailsSheet(form: MeetingForm(details: meta), capturesSystem: recorder.capturesSystem) {
                     recorder.updateDetails($0)
@@ -63,7 +62,45 @@ struct RecordingView: View {
         }
     }
 
+    /// Two rows: the controls never shrink, so sharing a row with them squeezed the title and
+    /// details down to "…" in a narrow window, and the details editor with them.
     private var header: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            controlsRow
+            HStack(alignment: .center, spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Button {
+                        titleDraft = recorder.title
+                        editingTitle = true
+                    } label: {
+                        Text(recorder.title).lineLimit(1).truncationMode(.middle).font(.headline)
+                    }
+                    .buttonStyle(.plain)
+                    .help("Rename")
+                    Button {
+                        recorder.showDetails()
+                    } label: {
+                        Label(detailsSummary, systemImage: "person.2")
+                            .lineLimit(2)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                    .help("Change the meeting type, languages and participants")
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Button("Edit Details…", systemImage: "slider.horizontal.3") {
+                    recorder.showDetails()
+                }
+                .help("Meeting type, languages, number and names of participants (⇧⌘D, or /details)")
+                .fixedSize()
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+    }
+
+    private var controlsRow: some View {
         HStack(spacing: 18) {
             HStack(spacing: 7) {
                 Circle()
@@ -75,27 +112,6 @@ struct RecordingView: View {
                     .font(.system(.title3, design: .monospaced))
                     .monospacedDigit()
                     .fixedSize()
-            }
-            VStack(alignment: .leading, spacing: 2) {
-                Button {
-                    titleDraft = recorder.title
-                    editingTitle = true
-                } label: {
-                    Text(recorder.title).lineLimit(1).font(.headline)
-                }
-                .buttonStyle(.plain)
-                .help("Rename")
-                Button {
-                    editingDetails = true
-                } label: {
-                    Label(detailsSummary, systemImage: "person.2")
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                .buttonStyle(.plain)
-                .help("Change the meeting type and participants")
             }
             Spacer()
             if recorder.isMicMuted {
@@ -122,8 +138,6 @@ struct RecordingView: View {
             .tint(.red)
             .disabled(recorder.phase == .stopping)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
     }
 
     private var mutedBanner: some View {
@@ -201,6 +215,7 @@ struct RecordingView: View {
                 legendRow("@Jim", "the person speaking is Jim")
                 legendRow("@Jim+", "the next person to speak is Jim")
                 legendRow("/mute", "stop recording the mic, /unmute to resume (⌃⌥M from any app)")
+                legendRow("/details", "change the type, languages and participants (⇧⌘D)")
                 legendRow("/pause", "also /resume, /stop, /title, /participants")
             }
         }
@@ -214,6 +229,17 @@ struct RecordingView: View {
             Text(prefix).font(.system(.callout, design: .monospaced))
             Text(meaning)
         }
+    }
+}
+
+/// The File menu entry: observes the recorder so it enables itself when a meeting starts.
+struct RecordingDetailsCommand: View {
+    @ObservedObject var recorder: RecordingController
+
+    var body: some View {
+        Button("Edit Meeting Details…") { recorder.showDetails() }
+            .keyboardShortcut("d", modifiers: [.command, .shift])
+            .disabled(!recorder.isActive)
     }
 }
 

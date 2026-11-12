@@ -263,12 +263,13 @@ Type these in the note field:
 | `/stop` | End the meeting |
 | `/title New title` | Rename the meeting |
 | `/participants Sophie, Marc` | Replace the expected participants |
+| `/details` | Open the meeting details: type, languages, counts and names |
 
 Paused time becomes silence, so the timeline stays aligned with your notes.
 
 ### Changing the meeting type, languages and participants
 
-Under the title, the recording screen shows the type, the languages, the counts and the expected names, for example "Hybrid · FR+EN · 4 in the room · 2 remote · Sophie, Marc". Click it to change any of them while recording: someone joins remotely, the meeting switches to English, the count was wrong, a name was missing.
+Under the title, the recording screen shows the type, the languages, the counts and the expected names, for example "Hybrid · FR+EN · 4 in the room · 2 remote · Sophie, Marc". Click it, or **Edit Details…** next to it, to change any of them while recording (also **File › Edit Meeting Details…**, ⇧⌘D, or `/details`): someone joins remotely, the meeting switches to English, the count was wrong, a name was missing.
 
 - Processing reads these values after the meeting, so they apply to the whole recording, not from the moment you change them.
 - **From In Person to Video Call or Hybrid**: system audio starts when you save. Remote voices from before that weren't recorded.

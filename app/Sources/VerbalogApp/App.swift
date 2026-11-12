@@ -26,6 +26,8 @@ struct VerbalogApp: App {
                     .disabled(model.recorder.isActive)
                 Button("Import Recording…") { model.selection = .importRecording }
                     .keyboardShortcut("i")
+                Divider()
+                RecordingDetailsCommand(recorder: model.recorder)
             }
             CommandGroup(replacing: .help) {
                 // The manual lives on GitHub, always matching the latest release.
