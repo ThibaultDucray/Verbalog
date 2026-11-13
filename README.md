@@ -71,7 +71,7 @@ The [user manual](MANUAL.md) covers everything else.
 
 Audio, transcription, speaker separation and voiceprints stay on your Mac. The network is used only to install Python and its packages on first launch, to download the models from Hugging Face, and to send text to an LLM when you choose to. There is no analytics or telemetry, including from the libraries Verbalog uses.
 
-Files go to `~/Verbalog`; working data is in `~/.verbalog`. See [Privacy and your data](MANUAL.md#12-privacy-and-your-data) for the details.
+Files go to `~/Verbalog`; working data is in `~/.verbalog`. The [privacy notice](PRIVACY.md) lists everything Verbalog stores, for how long, and what can leave your Mac.
 
 ## Supporting development
 

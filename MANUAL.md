@@ -54,12 +54,12 @@ Drag Verbalog from Applications to the Trash, then delete what it installed and 
 | `~/Library/Caches/Verbalog` | Download and bytecode caches |
 | `~/Library/Preferences/app.verbalog.Verbalog.plist` | Interface preferences: language, remembered audio sources, your custom LLM site, support reminders |
 | `~/.cache/huggingface/hub` | The models, in the `models--mlx-community--whisper-*` and `models--pyannote--*` folders. Other apps may share this cache |
-| `~/.verbalog` | Your settings, lists, voiceprints and meetings not finished yet |
+| `~/.verbalog` | Your settings, lists, voiceprints, and the working folder of every meeting still listed in Verbalog |
 | `~/Verbalog`, or the folder chosen in Settings | Your exported transcripts: keep them if you want them |
 
 The Hugging Face token, the Anthropic API key and the voiceprint key are in the Keychain, under the service name `verbalog`: delete them with **Keychain Access**. Deleting the voiceprint key makes saved voiceprints unreadable.
 
-The same thing in Terminal, except your transcripts. The third line also deletes your meetings in progress:
+The same thing in Terminal, except your exported transcripts. The third line also deletes every meeting's working folder, and with it the meetings in progress:
 
 ```sh
 rm -rf ~/Library/Application\ Support/Verbalog ~/Library/Caches/Verbalog
@@ -541,6 +541,8 @@ See [Voiceprints](#10-voiceprints).
 ---
 
 ## 12. Privacy and your data
+
+The [privacy notice](PRIVACY.md) lists everything Verbalog stores, for how long, and what can leave your Mac. In short:
 
 **What stays on your Mac:** all audio, all transcription and speaker processing, voiceprints, and the pseudonym tables.
 
