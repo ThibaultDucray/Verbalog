@@ -71,6 +71,7 @@ public final class CaptureSession: @unchecked Sendable {
     private var lastMicBuffer: TimeInterval = 0
     private var micZeroSince: TimeInterval?
     private var lastMicRestart: TimeInterval = 0
+    private var micRestarts = 0
     private var micLost = false
 
     public var onLevels: (@Sendable (AudioLevels) -> Void)?
@@ -113,8 +114,8 @@ public final class CaptureSession: @unchecked Sendable {
         micRecorder.onFailure = { [weak self] error in
             self?.onWarning?(L("The microphone couldn't be reconnected: \(error.localizedDescription)"))
         }
-        try micRecorder.start()
-        mic = micRecorder
+        try await micRecorder.start()
+        lock.withLock { mic = micRecorder }
 
         let systemError = configuration.captureSystem ? await startSystem() : nil
         startLevelTimer()
@@ -166,8 +167,8 @@ public final class CaptureSession: @unchecked Sendable {
         lock.withLock { stopped = true }
         levelTimer?.cancel()
         levelTimer = nil
-        mic?.stop()
-        mic = nil
+        lock.withLock { mic }?.stop()
+        lock.withLock { mic = nil }
         await system?.stop()
         system = nil
         let end = ProcessInfo.processInfo.systemUptime
@@ -203,19 +204,30 @@ public final class CaptureSession: @unchecked Sendable {
         if let warning { onWarning?(warning) }
     }
 
+    /// First reopen the same microphone; if it still delivers nothing, switch to the Mac's own,
+    /// which a call can't take over. Only then is the mic reported lost.
     private func checkMic() {
+        // Only for a real recording. The setup screen's level test must leave devices alone:
+        // reopening an idle headset there made it flip between music and call modes.
+        guard configuration.directory != nil else { return }
         let now = ProcessInfo.processInfo.systemUptime
         var restart = false
+        var fallBack = false
         var lost: Bool?
         lock.withLock {
             guard !stopped else { return }
             let noBuffers = now - lastMicBuffer
             let zeros = micZeroSince.map { now - $0 } ?? 0
-            if (noBuffers >= 3 || zeros >= 10) && now - lastMicRestart >= 15 {
+            if noBuffers < 1 && zeros == 0 && now - lastMicRestart >= 30 {
+                micRestarts = 0  // healthy for a while: a later loss starts over
+            }
+            if (noBuffers >= 3 || zeros >= 10) && now - lastMicRestart >= 6 {
                 restart = true
                 lastMicRestart = now
+                micRestarts += 1
+                fallBack = micRestarts >= 2
             }
-            if !micLost && (noBuffers >= 12 || zeros >= 25) {
+            if !micLost && (noBuffers >= 16 || zeros >= 28) {
                 micLost = true
                 lost = true
             } else if micLost && noBuffers < 1 && zeros == 0 {
@@ -223,8 +235,17 @@ public final class CaptureSession: @unchecked Sendable {
                 lost = false
             }
         }
-        if restart {
-            DispatchQueue.main.async { [weak self] in self?.mic?.restart() }
+        if restart, let mic = lock.withLock({ mic }) {
+            // Off this timer, which also feeds the level meters: listing devices asks Core
+            // Audio, which a call app can keep busy. A stuck reconnection is abandoned for a new one.
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                if fallBack, mic.canFallBack {
+                    mic.restart(builtIn: true)
+                    self?.onWarning?(L("Your headset's microphone stopped working with the call: Verbalog now records your voice with the Mac's microphone."))
+                } else {
+                    mic.restart()
+                }
+            }
         }
         if let lost { onMicLost?(lost) }
     }

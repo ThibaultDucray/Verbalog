@@ -47,6 +47,44 @@ public enum AudioDevices {
         return status == noErr && id != 0 ? id : nil
     }
 
+    /// The Mac's own microphone: the fallback when a headset stops delivering during a call.
+    static func builtInInput() -> AudioInputDevice? {
+        inputs().first { device in
+            var address = AudioObjectPropertyAddress(
+                mSelector: kAudioDevicePropertyTransportType,
+                mScope: kAudioObjectPropertyScopeGlobal,
+                mElement: kAudioObjectPropertyElementMain
+            )
+            var transport: UInt32 = 0
+            var size = UInt32(MemoryLayout<UInt32>.size)
+            let status = AudioObjectGetPropertyData(device.id, &address, 0, nil, &size, &transport)
+            return status == noErr && transport == kAudioDeviceTransportTypeBuiltIn
+        }
+    }
+
+    static func name(_ id: AudioDeviceID) -> String {
+        string(id, kAudioObjectPropertyName) ?? "?"
+    }
+
+    /// The format of the device's first input stream, as its I/O callback delivers it.
+    static func inputFormat(_ id: AudioDeviceID) -> AudioStreamBasicDescription? {
+        var address = AudioObjectPropertyAddress(
+            mSelector: kAudioDevicePropertyStreams,
+            mScope: kAudioObjectPropertyScopeInput,
+            mElement: kAudioObjectPropertyElementMain
+        )
+        var size: UInt32 = 0
+        guard AudioObjectGetPropertyDataSize(id, &address, 0, nil, &size) == noErr, size > 0 else { return nil }
+        var streams = [AudioStreamID](repeating: 0, count: Int(size) / MemoryLayout<AudioStreamID>.size)
+        guard AudioObjectGetPropertyData(id, &address, 0, nil, &size, &streams) == noErr, let first = streams.first else { return nil }
+        address.mSelector = kAudioStreamPropertyVirtualFormat
+        address.mScope = kAudioObjectPropertyScopeGlobal
+        var format = AudioStreamBasicDescription()
+        size = UInt32(MemoryLayout<AudioStreamBasicDescription>.size)
+        guard AudioObjectGetPropertyData(first, &address, 0, nil, &size, &format) == noErr else { return nil }
+        return format
+    }
+
     private static func hasInput(_ id: AudioDeviceID) -> Bool {
         var address = AudioObjectPropertyAddress(
             mSelector: kAudioDevicePropertyStreamConfiguration,

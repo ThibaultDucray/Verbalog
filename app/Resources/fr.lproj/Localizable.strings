@@ -346,6 +346,7 @@
 "Process meetings as soon as they end" = "Traiter les réunions dès qu'elles se terminent";
 "The microphone couldn't be reconnected: %@" = "Impossible de reconnecter le micro : %@";
 "The microphone is recording again." = "Le micro enregistre de nouveau.";
+"Your headset's microphone stopped working with the call: Verbalog now records your voice with the Mac's microphone." = "Le micro de votre casque ne fonctionne plus avec l'appel : Verbalog enregistre désormais votre voix avec le micro du Mac.";
 "Title, meeting type, languages, number and names of participants: processing uses them" = "Titre, type de réunion, langues, nombre et noms des participants : le traitement les utilise";
 "Turn off to record several meetings in a row and process them later: each one waits on its page, with Start Processing." = "Désactivez pour enregistrer plusieurs réunions d'affilée et les traiter plus tard : chacune attend sur sa page, avec Lancer le traitement.";
 "Unknown command: %@. Available: /stop, /pause, /resume, /mute, /unmute, /title, /participants, /details." = "Commande inconnue : %@. Disponibles : /stop, /pause, /resume, /mute, /unmute, /title, /participants, /details.";
