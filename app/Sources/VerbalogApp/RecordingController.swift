@@ -73,6 +73,9 @@ final class RecordingController: ObservableObject {
     @Published private(set) var warnings: [String] = []
     @Published private(set) var liveStatus: String?
     @Published private(set) var isMicMuted = false
+    /// The mic stopped recording anything, often because the call app took the headset.
+    @Published private(set) var isMicLost = false
+    private var attentionRequest: Int?
     @Published private(set) var capturesSystem = false
     @Published var title = ""
 
@@ -125,6 +128,9 @@ final class RecordingController: ObservableObject {
         }
         session.onWarning = { [weak self] message in
             Task { @MainActor in self?.warnings.append(message) }
+        }
+        session.onMicLost = { [weak self] lost in
+            Task { @MainActor in self?.setMicLost(lost) }
         }
 
         do {
@@ -271,8 +277,27 @@ final class RecordingController: ObservableObject {
     func setMicMuted(_ muted: Bool) {
         capture?.setMicMuted(muted)
         isMicMuted = muted
-        // Forgetting to unmute silently loses speech, so this must show even with the call in front.
-        NSApp.dockTile.badgeLabel = muted ? L("Muted") : nil
+        updateBadge()
+    }
+
+    private func setMicLost(_ lost: Bool) {
+        guard lost != isMicLost else { return }
+        isMicLost = lost
+        updateBadge()
+        if lost {
+            warnings.append(L("Your microphone stopped recording: your voice is missing from this point. Verbalog keeps trying to reconnect it."))
+            // The call is in front: bounce the Dock icon until someone looks.
+            attentionRequest = NSApp.requestUserAttention(.criticalRequest)
+        } else {
+            warnings.append(L("The microphone is recording again."))
+            if let attentionRequest { NSApp.cancelUserAttentionRequest(attentionRequest) }
+            attentionRequest = nil
+        }
+    }
+
+    /// Losing speech without noticing is the worst outcome, so this shows even with the call in front.
+    private func updateBadge() {
+        NSApp.dockTile.badgeLabel = isMicMuted ? L("Muted") : isMicLost ? L("No mic") : nil
     }
 
     func rename(_ newTitle: String) {
@@ -327,6 +352,7 @@ final class RecordingController: ObservableObject {
         clock?.cancel()
         liveTask?.cancel()
         await capture.stop()
+        setMicLost(false)
         setMicMuted(false)
         self.capture = nil
         capturesSystem = false

@@ -234,7 +234,6 @@
 "Transcripts Folder" = "Dossier des transcriptions";
 "Undo Merge" = "Annuler la fusion";
 "Unknown" = "Inconnu";
-"Unknown command: %@. Available: /stop, /pause, /resume, /mute, /unmute, /title, /participants." = "Commande inconnue : %@. Disponibles : /stop, /pause, /resume, /mute, /unmute, /title, /participants.";
 "Unsupported microphone audio format." = "Format audio du micro non pris en charge.";
 "Video Call" = "Visio";
 "View" = "Vue";
@@ -333,3 +332,24 @@
 "Can't read this file: %@" = "Lecture du fichier impossible : %@";
 "unsupported audio format" = "format audio non pris en charge";
 "reading stopped" = "lecture interrompue";
+
+/* Meeting details, processing queue, microphone health */
+"%lld speaking" = "%lld personnes qui parlent";
+"Change the meeting type, languages and participants" = "Modifier le type de réunion, les langues et les participants";
+"change the type, languages and participants (⇧⌘D)" = "modifier le type, les langues et les participants (⇧⌘D)";
+"Edit Details…" = "Modifier les détails…";
+"Edit Meeting Details…" = "Modifier les détails de la réunion…";
+"In Person ignores the recorded system audio: remote voices won't be transcribed." = "En présentiel, l'audio système enregistré est ignoré : les voix à distance ne seront pas transcrites.";
+"Meeting type, languages, number and names of participants (⇧⌘D, or /details)" = "Type de réunion, langues, nombre et noms des participants (⇧⌘D, ou /details)";
+"No mic" = "Micro coupé";
+"No system audio was recorded for this meeting: only the mic will be transcribed." = "Aucun audio système n'a été enregistré pour cette réunion : seul le micro sera transcrit.";
+"Process meetings as soon as they end" = "Traiter les réunions dès qu'elles se terminent";
+"The microphone couldn't be reconnected: %@" = "Impossible de reconnecter le micro : %@";
+"The microphone is recording again." = "Le micro enregistre de nouveau.";
+"Title, meeting type, languages, number and names of participants: processing uses them" = "Titre, type de réunion, langues, nombre et noms des participants : le traitement les utilise";
+"Turn off to record several meetings in a row and process them later: each one waits on its page, with Start Processing." = "Désactivez pour enregistrer plusieurs réunions d'affilée et les traiter plus tard : chacune attend sur sa page, avec Lancer le traitement.";
+"Unknown command: %@. Available: /stop, /pause, /resume, /mute, /unmute, /title, /participants, /details." = "Commande inconnue : %@. Disponibles : /stop, /pause, /resume, /mute, /unmute, /title, /participants, /details.";
+"Verbalog keeps trying to reconnect it. If it doesn't come back, end this meeting and start a new one, choosing your headset as the microphone." = "Verbalog continue d'essayer de le reconnecter. S'il ne revient pas, terminez cette réunion et lancez-en une nouvelle en choisissant votre casque comme micro.";
+"Waiting for the other meetings to be processed…" = "En attente du traitement des autres réunions…";
+"Your mic isn't recording anything: your voice is missing." = "Votre micro n'enregistre rien : votre voix manque.";
+"Your microphone stopped recording: your voice is missing from this point. Verbalog keeps trying to reconnect it." = "Votre micro a cessé d'enregistrer : votre voix manque à partir de ce moment. Verbalog continue d'essayer de le reconnecter.";

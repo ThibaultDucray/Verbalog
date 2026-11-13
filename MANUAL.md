@@ -601,6 +601,9 @@ Check Screen Recording for Verbalog in System Settings › Privacy & Security, t
 **The Mic meter doesn't move.**
 Check Microphone in System Settings › Privacy & Security, and the selected input in the form.
 
+**"Your mic isn't recording anything" during a call, or your voice is missing from the transcript.**
+Starting a call (WhatsApp, Teams, Zoom…) can switch a Bluetooth headset to call mode, and its microphone can then stop reaching Verbalog. Verbalog reconnects the mic by itself. If the mic still records nothing after a few seconds, a red banner appears, the Dock icon bounces and shows **No mic**. If it doesn't come back, end the meeting and start a new one with your headset chosen as **Microphone** in the form, or start Verbalog after the call has started. When the mic recorded almost nothing during a whole call, processing says so and keeps the audio, so you can check before deleting it.
+
 **No sound when playing extracts on Bluetooth headphones.**
 This has been seen on a Sony WH-CH520 after a call: macOS reports normal playback, but the headphones stay silent. Verbalog now tells the headphones that playback has started, which is intended to fix this. If it's still silent, play a few seconds of music in another app and try again, or switch the output to the Mac's speakers in the Sound menu. Do this before confirming the review screen, since confirming deletes the audio.
 
@@ -617,7 +620,7 @@ Add it to the glossary for future meetings, and fix this meeting with **Edit Tex
 The Mac couldn't keep up, so part of the preview was skipped. The final transcript isn't affected.
 
 **"Audio kept" warning on a finished meeting.**
-The transcript covered less than 90% of the audible audio. Check the transcript, then click **Delete Audio** when you're satisfied.
+The transcript covered less than 90% of the audible audio, or your microphone recorded almost no speech during a call. Check the transcript, then click **Delete Audio** when you're satisfied.
 
 **The app crashed or was quit during a meeting.**
 The audio captured so far is kept. Open the meeting and click **Start Processing**. If you quit during processing, it also restarts this way.

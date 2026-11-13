@@ -51,6 +51,18 @@ def _read_track(path: Path) -> np.ndarray | None:
     return au.read_wav(path)
 
 
+def mic_nearly_silent(audio: np.ndarray, mode: str) -> bool:
+    """On a call, your own voice is only on the mic. A mic that heard almost nothing for a
+    whole meeting usually means the call app took the headset away from Verbalog."""
+    if mode == "presentiel":
+        return False  # the mic is the whole meeting: an empty transcript already keeps the audio
+    duration = len(audio) / au.SR
+    if duration < 120:
+        return False
+    voiced = sum(end - start for start, end in au.energy_vad(audio))
+    return voiced < max(5.0, 0.01 * duration)
+
+
 def _count(value: Any) -> int | None:
     return value if isinstance(value, int) and value > 0 else None
 
@@ -110,6 +122,9 @@ def _process(session: Session, cfg: dict[str, Any], emit: Emit, transcriber: Tra
         raise FileNotFoundError(t("No audio to process: it was deleted or never recorded."))
     if mic is None:
         warnings.append(t("Mic track missing or empty."))
+    mic_silent = mic is not None and mic_nearly_silent(mic, mode)
+    if mic_silent:
+        warnings.append(t("Your microphone recorded almost no speech. If you spoke during this meeting, your voice is missing from the transcript: the audio is kept so you can check."))
     if system is None and mode != "presentiel":
         warnings.append(t("System track missing or empty: check the screen recording permission."))
 
@@ -235,6 +250,7 @@ def _process(session: Session, cfg: dict[str, Any], emit: Emit, transcriber: Tra
         "conflicts": conflicts,
         "dedup_removed": [vars(r) for r in removed],
         "warnings": warnings,
+        "mic_silent": mic_silent,
         "needs_review": bool(conflicts) or any(not s["name"] for s in speakers.values()),
     }
     session.save_transcript(doc)

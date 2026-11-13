@@ -33,6 +33,20 @@ public enum AudioDevices {
         inputs().first { $0.uid == key || $0.name == key }
     }
 
+    /// The input chosen in System Settings › Sound, which changes when a headset connects or a
+    /// call app switches it to call mode.
+    static func defaultInputID() -> AudioDeviceID? {
+        var address = AudioObjectPropertyAddress(
+            mSelector: kAudioHardwarePropertyDefaultInputDevice,
+            mScope: kAudioObjectPropertyScopeGlobal,
+            mElement: kAudioObjectPropertyElementMain
+        )
+        var id = AudioDeviceID(0)
+        var size = UInt32(MemoryLayout<AudioDeviceID>.size)
+        let status = AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, &size, &id)
+        return status == noErr && id != 0 ? id : nil
+    }
+
     private static func hasInput(_ id: AudioDeviceID) -> Bool {
         var address = AudioObjectPropertyAddress(
             mSelector: kAudioDevicePropertyStreamConfiguration,

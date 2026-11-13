@@ -547,3 +547,23 @@ def test_imported_recording_is_one_mixed_track_in_the_export():
     md = Path(result["outputs"]["md"]).read_text(encoding="utf-8")
     assert "context: import" in md
     assert "room" not in md and "salle" not in md
+
+
+def test_a_mic_silent_for_a_whole_call_is_flagged():
+    quiet = np.concatenate([speech(1, seed=4), SILENCE(299)])  # one word, then nothing: the call took the headset
+    talking = np.concatenate([speech(30, seed=5), SILENCE(270)])
+    assert pipeline.mic_nearly_silent(quiet, "visio")
+    assert not pipeline.mic_nearly_silent(talking, "visio")
+    assert not pipeline.mic_nearly_silent(quiet, "presentiel")  # there the mic is the whole meeting
+    assert not pipeline.mic_nearly_silent(SILENCE(60), "visio")  # too short to tell
+
+
+def test_a_silent_mic_keeps_the_audio(tmp_path):
+    from verbalog import cleanup
+
+    session, _, _ = visio_session()
+    md = tmp_path / "t.md"
+    md.write_text("# t\n", encoding="utf-8")
+    doc = {"turns": [], "dedup_removed": [], "mic_silent": True}
+    validation = cleanup.validate(session, doc, md)
+    assert not validation.ok and "micro" in validation.reason

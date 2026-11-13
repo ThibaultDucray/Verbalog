@@ -30,6 +30,9 @@ struct RecordingView: View {
             if recorder.isMicMuted {
                 mutedBanner
                 Divider()
+            } else if recorder.isMicLost {
+                micLostBanner
+                Divider()
             }
             if !recorder.warnings.isEmpty {
                 WarningList(warnings: recorder.warnings).padding(10)
@@ -145,6 +148,22 @@ struct RecordingView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
         .background(Color.orange.opacity(0.25))
+    }
+
+    private var micLostBanner: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "mic.badge.xmark")
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Your mic isn't recording anything: your voice is missing.")
+                    .font(.callout.weight(.semibold))
+                Text("Verbalog keeps trying to reconnect it. If it doesn't come back, end this meeting and start a new one, choosing your headset as the microphone.")
+                    .font(.caption)
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color.red.opacity(0.25))
     }
 
     private var liveColumn: some View {

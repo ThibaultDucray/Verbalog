@@ -70,6 +70,8 @@ def validate(session: Session, doc: dict[str, Any], md_path: Path) -> Validation
     if not md_path.exists() or not md_path.read_text(encoding="utf-8").strip():
         return Validation(False, 0.0, t("the transcript file is missing or empty"))
     value = coverage(session, doc)
+    if doc.get("mic_silent"):
+        return Validation(False, value, t("the microphone recorded almost no speech"))
     if not doc["turns"]:
         if value >= 1.0:  # nothing audible was recorded: nothing was lost either
             return Validation(True, value)

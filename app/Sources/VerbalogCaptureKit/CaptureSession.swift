@@ -66,10 +66,18 @@ public final class CaptureSession: @unchecked Sendable {
     private var levels = AudioLevels()
     private var levelTimer: DispatchSourceTimer?
     private var startTime: TimeInterval = 0
+    // Mic health: a call app switching a Bluetooth headset to call mode can leave the mic
+    // delivering nothing, or only zeros, without any error.
+    private var lastMicBuffer: TimeInterval = 0
+    private var micZeroSince: TimeInterval?
+    private var lastMicRestart: TimeInterval = 0
+    private var micLost = false
 
     public var onLevels: (@Sendable (AudioLevels) -> Void)?
     /// Something went wrong mid-recording, on a track that keeps the session going without it.
     public var onWarning: (@Sendable (String) -> Void)?
+    /// True when the mic stopped recording anything despite restarts, false when it's back.
+    public var onMicLost: (@Sendable (Bool) -> Void)?
 
     public init(configuration: Configuration) {
         self.configuration = configuration
@@ -91,6 +99,7 @@ public final class CaptureSession: @unchecked Sendable {
         guard await Self.requestMicrophoneAccess() else { throw CaptureError.microphoneDenied }
 
         startTime = ProcessInfo.processInfo.systemUptime
+        lastMicBuffer = startTime
         let epochMs = Int64(Date().timeIntervalSince1970 * 1000)
 
         if let directory = configuration.directory {
@@ -100,6 +109,9 @@ public final class CaptureSession: @unchecked Sendable {
 
         let micRecorder = MicRecorder(deviceKey: configuration.micDevice) { [weak self] samples, host, level in
             self?.receive(samples, host, level, isMic: true)
+        }
+        micRecorder.onFailure = { [weak self] error in
+            self?.onWarning?(L("The microphone couldn't be reconnected: \(error.localizedDescription)"))
         }
         try micRecorder.start()
         mic = micRecorder
@@ -170,6 +182,12 @@ public final class CaptureSession: @unchecked Sendable {
     private func receive(_ samples: [Int16], _ host: TimeInterval, _ level: Float, isMic: Bool) {
         var warning: String?
         lock.withLock {
+            if isMic {
+                let now = ProcessInfo.processInfo.systemUptime
+                lastMicBuffer = now
+                // Digital zeros, not a quiet room: real microphones always hear some noise.
+                micZeroSince = micMuted || level > -90 ? nil : (micZeroSince ?? now)
+            }
             if isMic && micMuted { return }  // a skipped write becomes silence on the timeline
             if isMic { levels.mic = max(levels.mic, level) } else { levels.system = max(levels.system, level) }
             guard !paused else { return }
@@ -185,11 +203,38 @@ public final class CaptureSession: @unchecked Sendable {
         if let warning { onWarning?(warning) }
     }
 
+    private func checkMic() {
+        let now = ProcessInfo.processInfo.systemUptime
+        var restart = false
+        var lost: Bool?
+        lock.withLock {
+            guard !stopped else { return }
+            let noBuffers = now - lastMicBuffer
+            let zeros = micZeroSince.map { now - $0 } ?? 0
+            if (noBuffers >= 3 || zeros >= 10) && now - lastMicRestart >= 15 {
+                restart = true
+                lastMicRestart = now
+            }
+            if !micLost && (noBuffers >= 12 || zeros >= 25) {
+                micLost = true
+                lost = true
+            } else if micLost && noBuffers < 1 && zeros == 0 {
+                micLost = false
+                lost = false
+            }
+        }
+        if restart {
+            DispatchQueue.main.async { [weak self] in self?.mic?.restart() }
+        }
+        if let lost { onMicLost?(lost) }
+    }
+
     private func startLevelTimer() {
         let timer = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
         timer.schedule(deadline: .now() + .milliseconds(500), repeating: .milliseconds(500))
         timer.setEventHandler { [weak self] in
             guard let self else { return }
+            self.checkMic()
             let snapshot = self.lock.withLock { () -> AudioLevels in
                 let current = self.levels
                 self.levels = AudioLevels()

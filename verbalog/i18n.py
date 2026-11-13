@@ -26,6 +26,8 @@ FR = {
     "Unknown meeting type: {mode}": "Type de réunion inconnu : {mode}",
     "No audio to process: it was deleted or never recorded.": "Aucun audio à traiter : l'audio a été supprimé ou n'a jamais été enregistré.",
     "Mic track missing or empty.": "Piste micro absente ou vide.",
+    "Your microphone recorded almost no speech. If you spoke during this meeting, your voice is missing from the transcript: the audio is kept so you can check.": "Votre micro n'a presque rien enregistré. Si vous avez parlé pendant cette réunion, votre voix manque dans la transcription : l'audio est conservé pour que vous puissiez vérifier.",
+    "the microphone recorded almost no speech": "le micro n'a presque rien enregistré",
     "System track missing or empty: check the screen recording permission.": "Piste système absente ou vide : vérifiez l'autorisation d'enregistrement de l'écran.",
     "Diarization unavailable, voices on this track aren't separated: {error}": "Diarisation indisponible, les voix ne sont pas séparées sur cette piste : {error}",
     "Voiceprints unreadable, automatic identification skipped: {error}": "Empreintes vocales illisibles, identification automatique ignorée : {error}",
