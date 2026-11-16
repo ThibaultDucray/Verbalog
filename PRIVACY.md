@@ -1,6 +1,6 @@
 # Privacy notice
 
-*Last updated: 13 November 2026, for Verbalog 0.4.1.*
+*Last updated: 13 November 2026, for Verbalog 0.4.2.*
 
 Verbalog records meetings, so it handles some of the most sensitive data there is: voices, conversations, names. This notice says exactly what the app stores, where, for how long, and what can leave your Mac.
 
