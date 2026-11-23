@@ -77,6 +77,10 @@ Files go to `~/Verbalog`; working data is in `~/.verbalog`. The [privacy notice]
 
 Verbalog is free and stays fully functional whether or not you contribute. If it saves you time, you can [support its development](https://buy.stripe.com/aFa3cx8dV4ht6uicYxaMU00) with a voluntary contribution of the amount you choose. It doesn't unlock anything; the app also offers it from **Help › Support Development**, and asks discreetly after a few meetings.
 
+## Windows and Android
+
+A separate Windows and Android version lives in [`windows-android/`](windows-android/README.md): one Flutter app that transcribes and separates speakers on the device, with the same note syntax, speaker naming and pseudonymization. Ported by [StressFull](https://github.com/StressFull).
+
 ## Contributing
 
 Bug reports and pull requests are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Never attach real recordings or transcripts to an issue. To report a security or privacy problem, see [SECURITY.md](SECURITY.md).

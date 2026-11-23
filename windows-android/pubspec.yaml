@@ -1,0 +1,36 @@
+name: verbalog
+description: "VerbaLog for Windows and Android: local meeting recorder and transcriber, ported from Verbalog for macOS."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.14.0
+
+dependencies:
+  archive: ^4.7.1
+  audioplayers: ^6.8.1
+  file_picker: ^13.4.1
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^11.2.0
+  http: ^1.6.0
+  material_ui: ^1.1.0
+  path: ^1.9.1
+  path_provider: ^2.1.6
+  record: ^7.2.0
+  share_plus: ^13.3.1
+  shared_preferences: ^2.5.6
+  sherpa_onnx: ^2.0.3
+  url_launcher: ^6.3.3
+  wakelock_plus: ^1.8.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/prompts/
+

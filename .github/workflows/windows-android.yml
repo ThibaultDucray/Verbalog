@@ -1,0 +1,92 @@
+# SPDX-FileCopyrightText: 2026 Thibault Ducray, 2026 VerbaLog PC & Android contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# The Windows and Android app (Flutter), in windows-android/. Releases use
+# tags named windows-android-v*, apart from the Mac app's tags.
+
+name: Windows & Android
+
+on:
+  push:
+    branches: [main]
+    paths: ['windows-android/**', '.github/workflows/windows-android.yml']
+    tags: ['windows-android-v*']
+  pull_request:
+    paths: ['windows-android/**', '.github/workflows/windows-android.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: windows-android
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+
+  windows:
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - name: Package
+        shell: pwsh
+        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath VerbaLog-windows.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VerbaLog-windows
+          path: windows-android/VerbaLog-windows.zip
+
+  android:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build apk --release --split-per-abi
+      - run: flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VerbaLog-android
+          path: windows-android/build/app/outputs/flutter-apk/*.apk
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/windows-android-v')
+    needs: [windows, android]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
