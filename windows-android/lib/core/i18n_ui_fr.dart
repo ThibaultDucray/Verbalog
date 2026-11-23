@@ -1,0 +1,200 @@
+// SPDX-FileCopyrightText: 2026 VerbaLog PC & Android contributors
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+// French interface strings. English is the source language.
+
+const frUi = <String, String>{
+  // Meeting types and statuses
+  'Video call': 'Visio',
+  'Hybrid': 'Hybride',
+  'In person': 'Présentiel',
+  'Recording': 'Enregistrement',
+  'Ready to process': 'Prête à traiter',
+  'Waiting': 'En attente',
+  'Processing': 'Traitement',
+  'Name the speakers': 'Nommer les voix',
+  'Done': 'Terminée',
+  'Failed': 'Échec',
+  // Home
+  'Import a recording': 'Importer un enregistrement',
+  "This file can't be read: {error}": 'Ce fichier est illisible : {error}',
+  'Settings': 'Réglages',
+  'New meeting': 'Nouvelle réunion',
+  'Downloading the speech models…': 'Téléchargement des modèles vocaux…',
+  'One step left: download the speech models': 'Dernière étape : télécharger les modèles vocaux',
+  'Everything runs on this device. About {mb} MB, once.': 'Tout fonctionne sur cet appareil. Environ {mb} Mo, une seule fois.',
+  'No meetings yet': 'Aucune réunion pour l’instant',
+  'Record a call or a meeting room. VerbaLog transcribes it on this computer, tells the voices apart, and prepares minutes, an agenda and a follow-up email.':
+      'Enregistrez un appel ou une salle de réunion. VerbaLog le transcrit sur cet ordinateur, distingue les voix, et prépare le compte rendu, l’ordre du jour et le courriel de suivi.',
+  'Record a meeting. VerbaLog transcribes it on this phone, tells the voices apart, and prepares minutes, an agenda and a follow-up email.':
+      'Enregistrez une réunion. VerbaLog la transcrit sur ce téléphone, distingue les voix, et prépare le compte rendu, l’ordre du jour et le courriel de suivi.',
+  // Setup
+  'Set up VerbaLog': 'Configurer VerbaLog',
+  'Your name': 'Votre nom',
+  'Shown as the organizer in transcripts': 'Affiché comme organisateur dans les transcriptions',
+  'Transcription quality': 'Qualité de transcription',
+  'Transcription and speaker separation run entirely on this device. Nothing is sent anywhere.':
+      'La transcription et la séparation des voix se font entièrement sur cet appareil. Rien n’est envoyé.',
+  'Starting…': 'Démarrage…',
+  'All set': 'C’est prêt',
+  'Download models (about {mb} MB)': 'Télécharger les modèles (environ {mb} Mo)',
+  'Download failed: {error}': 'Échec du téléchargement : {error}',
+  'Models come from the open-source sherpa-onnx project (Whisper by OpenAI, pyannote, 3D-Speaker). No account is needed.':
+      'Les modèles viennent du projet libre sherpa-onnx (Whisper d’OpenAI, pyannote, 3D-Speaker). Aucun compte n’est nécessaire.',
+  'Best accuracy (Whisper large-v3 turbo)': 'Meilleure précision (Whisper large-v3 turbo)',
+  'Most accurate, close to the macOS Verbalog. Recommended on a PC. About 1 GB.':
+      'La plus précise, proche de Verbalog sur macOS. Recommandée sur PC. Environ 1 Go.',
+  'Balanced (Whisper small)': 'Équilibrée (Whisper small)',
+  'Good accuracy, faster. Recommended on a phone. About 360 MB.':
+      'Bonne précision, plus rapide. Recommandée sur téléphone. Environ 360 Mo.',
+  'Fast (Whisper base)': 'Rapide (Whisper base)',
+  'Quick, less accurate on names and accents. About 160 MB.': 'Rapide, moins précise sur les noms et les accents. Environ 160 Mo.',
+  'Speaker separation': 'Séparation des voix',
+  'Voice fingerprints': 'Empreintes vocales',
+  // New meeting
+  'Meeting of {date}': 'Réunion du {date}',
+  'Title': 'Titre',
+  'Weekly review': 'Point hebdo',
+  "Records your microphone and the PC's sound (Teams, Zoom, Meet…). Use a headset if you can.":
+      'Enregistre votre micro et le son du PC (Teams, Zoom, Meet…). Utilisez un casque si possible.',
+  "Records the room and the call's sound.": 'Enregistre la salle et le son de l’appel.',
+  'Records the room through the microphone.': 'Enregistre la salle par le micro.',
+  'Languages spoken': 'Langues parlées',
+  'Participants (optional)': 'Participants (facultatif)',
+  'Sophie Martin, Jim, Karim': 'Sophie Martin, Jim, Karim',
+  'Helps name the speakers and hide their names before anything is sent to an AI.':
+      'Aide à nommer les voix et à masquer les noms avant tout envoi à une IA.',
+  'Number of remote participants': 'Nombre de participants distants',
+  'Number of people speaking': 'Nombre de personnes qui parlent',
+  'Detect automatically': 'Détecter automatiquement',
+  "Let participants know they're being recorded.": 'Prévenez les participants qu’ils sont enregistrés.',
+  'Start recording': 'Démarrer l’enregistrement',
+  // Recording
+  "The PC's sound can't be recorded: {error}": 'Le son du PC ne peut pas être enregistré : {error}',
+  'Stop the recording?': 'Arrêter l’enregistrement ?',
+  'Keep recording': 'Continuer',
+  'Stop': 'Arrêter',
+  'Microphone': 'Micro',
+  'Call sound': 'Son de l’appel',
+  'Resume': 'Reprendre',
+  'Pause': 'Pause',
+  'Type notes while you listen. Start with ! for an action, # for a decision, ? for a question, ~ for a private note, @Name to say who is speaking. An empty note is a bookmark.':
+      'Prenez des notes en écoutant. Commencez par ! pour une action, # pour une décision, ? pour une question, ~ pour une note privée, @Nom pour dire qui parle. Une note vide est un signet.',
+  'Action': 'Action',
+  'Decision': 'Décision',
+  'Question': 'Question',
+  'Private': 'Privé',
+  'Note, then Enter': 'Note, puis Entrée',
+  'Bookmark': 'Signet',
+  '{name} is speaking': '{name} parle',
+  // Meeting
+  'Rename': 'Renommer',
+  'Cancel': 'Annuler',
+  'Save': 'Enregistrer',
+  'Delete this meeting?': 'Supprimer cette réunion ?',
+  'Its audio, transcript, notes and summaries are deleted from this device.':
+      'Son audio, sa transcription, ses notes et ses synthèses sont supprimés de cet appareil.',
+  'Delete': 'Supprimer',
+  'Share the transcript': 'Partager la transcription',
+  'Speakers': 'Voix',
+  'Minutes & follow-up': 'Compte rendu et suivi',
+  'Recorded. Transcribe it when you are ready.': 'Enregistrée. Transcrivez-la quand vous voulez.',
+  'Download the speech models first, from the home screen.': 'Téléchargez d’abord les modèles vocaux, depuis l’accueil.',
+  'Transcribe': 'Transcrire',
+  'Processing failed: {error}': 'Échec du traitement : {error}',
+  'Try again': 'Réessayer',
+  'Some voices have no name yet. Name them in Speakers, then validate.':
+      'Certaines voix n’ont pas encore de nom. Nommez-les dans Voix, puis validez.',
+  'No transcript yet.': 'Pas encore de transcription.',
+  'Transcript copied as Markdown.': 'Transcription copiée en Markdown.',
+  'No speech was recognized in this recording.': 'Aucune parole n’a été reconnue dans cet enregistrement.',
+  'Who is {speaker}?': 'Qui est {speaker} ?',
+  'Saved. The transcript and exports use these names.': 'Enregistré. La transcription et les exports utilisent ces noms.',
+  'Listen to a few words from each voice and give it a name. If two entries are the same person, merge them.':
+      'Écoutez quelques mots de chaque voix et donnez-lui un nom. Si deux entrées sont la même personne, fusionnez-les.',
+  'named from your notes': 'nommé d’après vos notes',
+  'named by you': 'nommé par vous',
+  'you': 'vous',
+  'Name': 'Nom',
+  'Same person as…': 'Même personne que…',
+  'Not merged': 'Pas fusionné',
+  'Validate and export': 'Valider et exporter',
+  'Save names': 'Enregistrer les noms',
+  'The audio is deleted once validated. Keep it in Settings if you prefer.':
+      'L’audio est supprimé une fois validé. Conservez-le dans les réglages si vous préférez.',
+  'Minutes': 'Compte rendu',
+  'Summary, decisions, actions with owners and deadlines, open points.':
+      'Synthèse, décisions, actions avec responsables et échéances, points ouverts.',
+  'Next meeting agenda': 'Ordre du jour de la prochaine réunion',
+  'Follow-up of actions, open points, what to prepare.': 'Suivi des actions, points ouverts, ce qu’il faut préparer.',
+  'Follow-up email': 'Courriel de suivi',
+  'Ready to send to the participants.': 'Prêt à envoyer aux participants.',
+  'These are written by an AI from the transcript. Names and sensitive terms are replaced before anything leaves the device, and you see the exact text first.':
+      'Ils sont rédigés par une IA à partir de la transcription. Les noms et termes sensibles sont remplacés avant que quoi que ce soit ne quitte l’appareil, et vous voyez d’abord le texte exact.',
+  'Prepare': 'Préparer',
+  'Redo': 'Refaire',
+  'Copy': 'Copier',
+  'Copied.': 'Copié.',
+  'Share': 'Partager',
+  'Open in my email app': 'Ouvrir dans ma messagerie',
+  // Generate
+  'Copied. Paste it in the assistant, then paste its answer below.': 'Copié. Collez-le dans l’assistant, puis collez sa réponse ci-dessous.',
+  'Hide names and sensitive terms': 'Masquer les noms et termes sensibles',
+  'Off: the text is sent as it is.': 'Désactivé : le texte est envoyé tel quel.',
+  '{n} terms replaced by aliases such as PERSONNE_1. The real names come back in the answer.':
+      '{n} termes remplacés par des alias comme PERSONNE_1. Les vrais noms reviennent dans la réponse.',
+  'Exact text that would be sent': 'Texte exact qui serait envoyé',
+  '{n} characters': '{n} caractères',
+  'With Claude, directly': 'Avec Claude, directement',
+  'Writing…': 'Rédaction…',
+  'Send to Claude and write it': 'Envoyer à Claude et rédiger',
+  'Add your Anthropic API key in Settings to do this in one click.':
+      'Ajoutez votre clé API Anthropic dans les réglages pour le faire en un clic.',
+  'Or with the assistant you prefer': 'Ou avec l’assistant de votre choix',
+  'Copy and open {name}': 'Copier et ouvrir {name}',
+  "Paste the assistant's answer here": 'Collez ici la réponse de l’assistant',
+  'Save the answer': 'Enregistrer la réponse',
+  'Once the text leaves this device, it is under the terms of the service you send it to.':
+      'Une fois sorti de cet appareil, le texte relève des conditions du service auquel vous l’envoyez.',
+  'No Anthropic API key: add one in Settings.': 'Aucune clé API Anthropic : ajoutez-la dans les réglages.',
+  'Anthropic API key rejected.': 'Clé API Anthropic refusée.',
+  'API rate limit reached: try again shortly.': 'Limite de débit de l’API atteinte : réessayez dans un instant.',
+  'The Anthropic API is overloaded: try again shortly.': 'L’API Anthropic est surchargée : réessayez dans un instant.',
+  "Can't connect to the Anthropic API.": 'Connexion à l’API Anthropic impossible.',
+  'The model declined to process this transcript.': 'Le modèle a refusé de traiter cette transcription.',
+  'Empty response from the model.': 'Réponse vide du modèle.',
+  // Settings
+  'You': 'Vous',
+  'App language': 'Langue de l’application',
+  'Transcription': 'Transcription',
+  'Quality': 'Qualité',
+  'Languages ticked by default': 'Langues cochées par défaut',
+  'Glossary': 'Glossaire',
+  'Names, products and acronyms, separated by commas. Added to the exports to help the AI.':
+      'Noms, produits et sigles, séparés par des virgules. Ajoutés aux exports pour aider l’IA.',
+  'Process each meeting when it ends': 'Traiter chaque réunion à la fin',
+  'Turn off to record several meetings in a row and process them later.':
+      'Désactivez pour enregistrer plusieurs réunions d’affilée et les traiter plus tard.',
+  'Keep the audio': 'Conserver l’audio',
+  'By default the audio is deleted once the transcript is validated.':
+      'Par défaut, l’audio est supprimé une fois la transcription validée.',
+  'Privacy': 'Confidentialité',
+  'Hide names before sending to an AI': 'Masquer les noms avant l’envoi à une IA',
+  'Participants, emails, phone numbers, amounts and the terms below are replaced by aliases.':
+      'Les participants, courriels, numéros de téléphone, montants et les termes ci-dessous sont remplacés par des alias.',
+  'Sensitive terms': 'Termes sensibles',
+  'One per line, optionally with a category.': 'Un par ligne, éventuellement avec une catégorie.',
+  'Minutes, agenda and email': 'Compte rendu, ordre du jour et courriel',
+  'Write them in': 'Les rédiger en',
+  'Anthropic API key (saved)': 'Clé API Anthropic (enregistrée)',
+  'Anthropic API key (optional)': 'Clé API Anthropic (facultative)',
+  'Stored in the system keychain. Without it, copy and paste into any assistant.':
+      'Conservée dans le trousseau du système. Sans elle, copiez-collez dans l’assistant de votre choix.',
+  'Key removed.': 'Clé supprimée.',
+  'Key saved.': 'Clé enregistrée.',
+  'Get an API key': 'Obtenir une clé API',
+  'About': 'À propos',
+  'VerbaLog for Windows and Android is free software under the GNU GPL v3 or later. It is a port of Verbalog for macOS by Thibault Ducray, whose transcript logic, notes and prompts it reuses.':
+      'VerbaLog pour Windows et Android est un logiciel libre sous licence GNU GPL v3 ou ultérieure. C’est un portage de Verbalog pour macOS de Thibault Ducray, dont il reprend la logique de transcription, les notes et les consignes.',
+  'Meetings are stored in {path}': 'Les réunions sont enregistrées dans {path}',
+};
