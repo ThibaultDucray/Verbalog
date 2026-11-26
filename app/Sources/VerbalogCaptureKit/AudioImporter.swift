@@ -51,6 +51,9 @@ public enum AudioImporter {
         output.alwaysCopiesSampleData = false
         guard reader.canAdd(output) else { throw ImportError.unreadable(L("unsupported audio format")) }
         reader.add(output)
+        // start() only exists in the macOS 26 SDK (Swift 6.2): older Xcodes, such as CI's, must
+        // not even see it.
+        #if compiler(>=6.2)
         if #available(macOS 26.0, *) {
             do {
                 try reader.start()
@@ -60,6 +63,11 @@ public enum AudioImporter {
         } else if !reader.startReading() {
             throw ImportError.unreadable(reader.error?.localizedDescription ?? L("unsupported audio format"))
         }
+        #else
+        if !reader.startReading() {
+            throw ImportError.unreadable(reader.error?.localizedDescription ?? L("unsupported audio format"))
+        }
+        #endif
 
         let writer = try WavWriter(url: destination)
         do {
