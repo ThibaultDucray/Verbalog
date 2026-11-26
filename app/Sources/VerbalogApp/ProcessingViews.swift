@@ -9,7 +9,7 @@ import VerbalogCore
 struct ProcessingView: View {
     @EnvironmentObject private var model: AppModel
     let id: String
-    let job: JobProgress
+    @ObservedObject var job: JobProgress
     @State private var live: [LiveSegment] = []
 
     var body: some View {

@@ -14,10 +14,18 @@ enum Selection: Hashable {
     case session(String)
 }
 
-struct JobProgress {
-    var label: String
-    var fraction: Double
+/// A job's progress. A class observed only by the processing screen: progress events arrive
+/// many times a second, and publishing them through AppModel redrew the whole window each time.
+@MainActor
+final class JobProgress: ObservableObject {
+    @Published var label: String
+    @Published var fraction: Double
     var task: Task<Void, Never>?
+
+    init(label: String, fraction: Double = 0) {
+        self.label = label
+        self.fraction = fraction
+    }
 }
 
 @MainActor
@@ -311,7 +319,7 @@ final class AppModel: ObservableObject {
 
     private func runJob(_ id: String, label: String, arguments: [String], failureStatus: SessionStatus?, queued: Bool = false) {
         let client = backend
-        jobs[id] = JobProgress(label: label, fraction: 0)
+        jobs[id] = JobProgress(label: label)
         let task = Task { [weak self] in
             defer { if queued { self?.processQueue.removeAll { $0 == id } } }
             do {
@@ -320,15 +328,17 @@ final class AppModel: ObservableObject {
                     while let self, self.processQueue.first != id {
                         try await Task.sleep(for: .milliseconds(300))
                     }
-                    self?.jobs[id]?.label = L("Preparing…")
+                    self?.jobs[id].map { $0.label = L("Preparing…") }
                 }
                 _ = try await client.run(arguments) { [weak self] event in
                     guard event.name == "progress" else { return }
                     let label = event.fields["label"] as? String ?? ""
                     let fraction = event.fields["fraction"] as? Double ?? 0
                     Task { @MainActor [weak self] in
-                        self?.jobs[id]?.label = label
-                        self?.jobs[id]?.fraction = fraction
+                        // Through a local: assigning via the dictionary would publish `jobs` again.
+                        guard let job = self?.jobs[id] else { return }
+                        job.label = label
+                        job.fraction = fraction
                     }
                 }
                 // Processing ends in review when speakers need naming; done means exported.
@@ -343,7 +353,7 @@ final class AppModel: ObservableObject {
             self?.jobs[id] = nil
             self?.reloadSessions()
         }
-        jobs[id]?.task = task
+        jobs[id].map { $0.task = task }
     }
 
     private func handleJobFailure(_ id: String, _ error: Error, _ status: SessionStatus?) {

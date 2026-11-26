@@ -66,7 +66,10 @@ struct SupportInvitation: View {
                 Text("Enjoying Verbalog?").font(.headline)
                 Text("You have already turned \(support.completedMeetings) meetings into notes with Verbalog. The app is free and open source. If it saves you time, please consider supporting its continued development.")
                     .font(.callout)
-                    .fixedSize(horizontal: false, vertical: true)
+                    // Not fixedSize: laid out at a near-zero width while the split view settles,
+                    // a fixed-height paragraph grew taller than the window and threw both the
+                    // sidebar and the transcript out of place.
+                    .lineLimit(2...4)
                 HStack(spacing: 8) {
                     Button("Support Development") { support.openSupportPage() }
                         .buttonStyle(.borderedProminent)
