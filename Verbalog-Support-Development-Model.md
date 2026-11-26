@@ -39,7 +39,7 @@ The prompt should never prevent access to the application or interrupt an active
 
 - **Support Development** opens a Stripe-hosted payment page in the user's default browser.
 - **Maybe Later** dismisses the prompt and postpones the next invitation, for example until 20 additional meeting notes have been created or at least 60 days have passed.
-- **Don't Show This Again** permanently disables automatic support prompts on that Mac.
+- **I've Already Supported**, in a **…** menu, permanently stops automatic support prompts on that Mac.
 
 A permanent **Support Development…** item may remain available in the **Help** menu, even when automatic prompts have been disabled.
 

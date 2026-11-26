@@ -47,11 +47,6 @@ final class SupportModel: ObservableObject {
         isSupporter = true
         inviting = false
     }
-
-    func neverAsk() {
-        policy.disablePrompts()
-        inviting = false
-    }
 }
 
 struct SupportInvitation: View {
@@ -75,10 +70,17 @@ struct SupportInvitation: View {
                         .buttonStyle(.borderedProminent)
                     Button("Maybe Later") { support.later() }
                     Spacer()
-                    Button("I've Already Supported") { support.markSupporter() }
-                        .buttonStyle(.link)
-                    Button("Don't Show This Again") { support.neverAsk() }
-                        .buttonStyle(.link)
+                    Menu {
+                        Button("I've Already Supported") { support.markSupporter() }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                    }
+                    .menuStyle(.borderlessButton)
+                    .menuIndicator(.hidden)
+                    .fixedSize()
+                    .foregroundStyle(.secondary)
+                    .help("More")
+                    .accessibilityLabel("More")
                 }
                 .controlSize(.small)
             }

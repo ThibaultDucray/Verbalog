@@ -583,7 +583,7 @@ After 10 finished meetings, Verbalog shows a discreet invitation above the meeti
 
 - **Support Development** opens the payment page.
 - **Maybe Later** waits for 20 more meetings or 60 days, whichever comes first.
-- **I've Already Supported** and **Don't Show This Again** stop the invitations for good.
+- **I've Already Supported**, in the **…** menu on the right, stops the invitations for good.
 
 Verbalog never checks whether you paid and sends nothing anywhere: the choice is stored only in its preferences on this Mac. **I've Already Supported** is also in the Help menu.
 

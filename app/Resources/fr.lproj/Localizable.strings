@@ -300,7 +300,6 @@
 "Support Development" = "Soutenir le développement";
 "Maybe Later" = "Plus tard";
 "I've Already Supported" = "J'ai déjà contribué";
-"Don't Show This Again" = "Ne plus afficher";
 "❤️ Thanks for Supporting Verbalog" = "❤️ Merci de soutenir Verbalog";
 "Support Again…" = "Contribuer à nouveau…";
 "☕ Support Development…" = "☕ Soutenir le développement…";
@@ -354,3 +353,4 @@
 "Waiting for the other meetings to be processed…" = "En attente du traitement des autres réunions…";
 "Your mic isn't recording anything: your voice is missing." = "Votre micro n'enregistre rien : votre voix manque.";
 "Your microphone stopped recording: your voice is missing from this point. Verbalog keeps trying to reconnect it." = "Votre micro a cessé d'enregistrer : votre voix manque à partir de ce moment. Verbalog continue d'essayer de le reconnecter.";
+"More" = "Plus";
